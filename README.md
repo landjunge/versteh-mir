@@ -6,6 +6,8 @@ Versteh-Mir ist eine lokale Verständigungs- und Einwilligungsschicht zwischen M
 
 Ein fertiger Plan ist keine Voraussetzung. Wenn ein Mensch noch nicht weiß, was er braucht oder wo er anfangen soll, geht Versteh-Mir individuell zurück, trennt Bekanntes von Unbekanntem und sucht mit ihm jeweils nur den nächsten verständlichen Schritt. Wissen, Ziel und Sprachebene werden nicht vermutet.
 
+Auch ungewöhnliche oder zunächst widersprüchliche Denkwege werden nicht vorschnell geglättet. Versteh-Mir bewahrt die Originalgedanken, fragt nach ihren Verbindungen und übernimmt nur vom Menschen bestätigte Beziehungen in einen späteren Plan.
+
 Sprache oder Tastatur. Drei Signale: **weiß**, **unsicher**, **gar nichts**.
 
 Zwei Richtungen:
