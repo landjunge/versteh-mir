@@ -11,6 +11,15 @@ Verwandte Dateien: `docs/IDEA.md`, `docs/BRAINSTORM.md`
 
 ---
 
+## 0. Unabhängigkeit
+
+Versteh-Mir ist ein eigenes Produkt.
+Gnom-Hub hat damit erst einmal nichts zu tun.
+Auch ThreadDesk, Tollgate und andere bestehende Landjunge-Tools sind keine Abhängigkeit und keine Vorlage für Etappe 1.
+Nicht importieren. Nicht andocken. Nicht nachbauen.
+
+---
+
 ## 1. Was gebaut wird
 
 Versteh-Mir sitzt als lokaler Daemon zwischen Mensch und KI-Agent.
@@ -44,12 +53,14 @@ Erste Etappe hat genau ein Ziel:
 10. Nie lange Erklärungen auf einmal. Immer eine Ebene, ein Wort, ein Begriff.
 11. Erster Adapter: Grok Build. Cursor und OpenCode kommen später.
 12. Barrierefreiheit ist Kern, nicht Extra (u. a. Legasthenie, motorische Einschränkungen).
+13. Kein Bezug zu Gnom-Hub oder anderen bestehenden Tools in dieser Etappe.
 
 ---
 
 ## 3. Ausgeschlossen (nicht bauen)
 
-- Fertiges Multi-Agent-Produkt, zweites Orchestrator-Dashboard, Gnom-Hub-Kopie.
+- Anbindung, Import oder Nachbau von Gnom-Hub, ThreadDesk, Tollgate oder anderen Landjunge-Tools.
+- Fertiges Multi-Agent-Produkt oder zweites Orchestrator-Dashboard.
 - Eigenes Konto / eigenen API-Key verlangen.
 - Prompt-Optimizer, Humanizer, reine Einweg-Klarstellung ohne Rückweg.
 - Settings-App mit Dutzenden Schaltern.
@@ -242,6 +253,7 @@ Etappe 1 ist erst fertig, wenn alle Punkte wahr sind:
 - [ ] `gar nichts` erklärt genau ein Wort und wartet.
 - [ ] Unklare Antwort wird nicht als `weiß` gewertet.
 - [ ] Kein Dashboard, keine Settings-Seite, kein zweiter Agent.
+- [ ] Kein Code und keine Imports aus Gnom-Hub oder anderen Landjunge-Tools.
 - [ ] Tests decken den Signal-Kreis ab.
 
 ---
@@ -264,6 +276,7 @@ Lies zuerst `docs/IDEA.md`, dann `docs/BRAINSTORM.md`, dann diese Datei.
 
 Bau nur Etappe 1.
 Erfinde keine Features.
+Zieh Gnom-Hub nicht hinzu.
 Wenn etwas unklar ist: stoppen und nachfragen, nicht füllen.
 Wenn du unsicher bist, sag unsicher.
 Wenn du ein Wort nicht belegen kannst, sag das.

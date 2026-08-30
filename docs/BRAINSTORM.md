@@ -9,11 +9,12 @@ Der Translator ist ein lokaler Daemon. Er fängt Agent-Aufrufe ab und übersetzt
 - KI → Mensch: dichte Antworten werden in die Sprache des Users zurückgelegt.
 
 ## Was wir ausgeschlossen haben
+- Gnom-Hub, ThreadDesk, Tollgate und andere bestehende Landjunge-Tools gehören nicht zu Versteh-Mir. Erst einmal kein Import, kein Andocken, kein Nachbau.
 - Kein fertiges bidirektionales Produkt existiert (nur Einweg-Tools wie Humanizer, Prompt-Optimizeren, Clarify-Features).
 - Kein reines Text-Dashboard oder Einstellungen-Wüste.
 - Kein eigener API-Schlüssel nötig (nutzt bestehende Session des Users, z. B. SuperGrok).
 - Kein Blind-Weiterbauen ohne Verständnis-Prüfung.
-- Kein Raten bei Unsicherheit – bei „ich weiß nicht" werden Optionen angeboten, nicht erfunden.
+- Kein Raten bei Unsicherheit – bei „ich weiß nicht“ werden Optionen angeboten, nicht erfunden.
 - Keine langen Erklärungen auf einmal – immer eine Ebene, ein Wort, ein Begriff.
 - Kein Tippen als Pflicht (Sprache ist Standard, aber nicht die einzige Eingabe).
 
@@ -30,7 +31,7 @@ Nie raten, nie blind weiterbauen.
 
 ## Oberfläche
 Kein Dashboard. Nur ein kleines Fenster oder Terminal-Panel:
-- Statuszeile oben: „Verbunden mit [Agent]" (z. B. grün für Grok Build).
+- Statuszeile oben: „Verbunden mit [Agent]“ (z. B. grün für Grok Build).
 - Aktuelle Frage oder Spezifikation, hörbar oder als Text.
 - Bestätigung per Sprache oder Taste.
 
@@ -46,4 +47,4 @@ Kein Dashboard. Nur ein kleines Fenster oder Terminal-Panel:
 - Repo: https://github.com/landjunge/versteh-mir
 
 ## Nächster Schritt
-Einen konkreten Bauplan für Daemon + Adapter + Frage-Stufe schreiben.
+Einen konkreten Bauplan für Daemon + Adapter + Frage-Stufe schreiben. Siehe `docs/PLAN.md`.
