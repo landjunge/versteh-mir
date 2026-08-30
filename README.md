@@ -4,6 +4,8 @@
 
 Versteh-Mir ist eine lokale Verständigungs- und Einwilligungsschicht zwischen Mensch und KI-Agent. Sie zeigt dem Menschen in seiner Sprache, was die KI verstanden hat und was sie als Nächstes tun will. Erst nach einer eindeutigen Freigabe darf der bestätigte Schritt stattfinden.
 
+Ein fertiger Plan ist keine Voraussetzung. Wenn ein Mensch noch nicht weiß, was er braucht oder wo er anfangen soll, geht Versteh-Mir individuell zurück, trennt Bekanntes von Unbekanntem und sucht mit ihm jeweils nur den nächsten verständlichen Schritt. Wissen, Ziel und Sprachebene werden nicht vermutet.
+
 Sprache oder Tastatur. Drei Signale: **weiß**, **unsicher**, **gar nichts**.
 
 Zwei Richtungen:
