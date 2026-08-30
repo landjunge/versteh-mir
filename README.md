@@ -1,27 +1,32 @@
 # Versteh-Mir
 
-Translator zwischen Mensch und KI-Agent. Sprache oder Tastatur. Drei Signale, bevor gebaut wird: **weiß**, **unsicher**, **gar nichts**.
+> Nicht besser prompten. Erst dasselbe meinen.
+
+Versteh-Mir ist eine lokale Verständigungs- und Einwilligungsschicht zwischen Mensch und KI-Agent. Sie zeigt dem Menschen in seiner Sprache, was die KI verstanden hat und was sie als Nächstes tun will. Erst nach einer eindeutigen Freigabe darf der bestätigte Schritt stattfinden.
+
+Sprache oder Tastatur. Drei Signale: **weiß**, **unsicher**, **gar nichts**.
 
 Zwei Richtungen:
 
-- **Mensch → KI** — Wunsch wird ein Satz, den die KI prüfen kann.
-- **KI → Mensch** — dichte Agent-Antwort wird in die Sprache des Menschen gelegt.
+- **Mensch → KI** — ein Wunsch wird zu einer Bedeutung, die der Mensch prüfen kann.
+- **KI → Mensch** — ein Agentenplan wird mit seinen tatsächlichen Folgen verständlich erklärt.
 
-Ohne **weiß** geht nichts weiter. Es wird in diesem Kreis nichts geschrieben.
+Das Ziel sind zwei getrennte Gates: Das erste **weiß** bestätigt die Bedeutung und erlaubt nur das Planen. Das zweite **weiß** gibt genau den unveränderten, sichtbaren Plan einmalig frei.
 
-## Etappe 1
+## Aktueller Stand
 
-Kleines Fenster. Ein Adapter: Grok Build. Kein Dashboard. Kein zweiter Agent. Kein extra Schlüssel.
+Das Repository enthält einen frühen TypeScript-/React-Prototyp. Der Signal-Kreis und erste Tests sind vorhanden; ein technisch erzwungenes Handlungstor und eine echte Grok-Build-Anbindung sind noch nicht fertig.
 
 Quellcode:
 
-- `src/lib/versteh-mir/` — Daemon, Signale, Adapter, Tests
-- `src/components/versteh-mir/window.tsx` — das Fenster
+- src/lib/versteh-mir/ — bisheriger Kern, Signale und Tests
+- src/components/versteh-mir/window.tsx — das kleine Fenster
 
-## Docs
+## Dokumentation
 
-- Idee: [docs/IDEA.md](docs/IDEA.md)
-- Brainstorm: [docs/BRAINSTORM.md](docs/BRAINSTORM.md)
-- Bauplan Etappe 1: [docs/PLAN.md](docs/PLAN.md)
+- [Idee](docs/IDEA.md)
+- [Brainstorm](docs/BRAINSTORM.md)
+- [Erster Bauplan für Etappe 1](docs/PLAN.md)
+- [Verbindlicher Bauplan für die weitere Umsetzung](docs/BUILD_PLAN.md)
 
 Repo: https://github.com/landjunge/versteh-mir
