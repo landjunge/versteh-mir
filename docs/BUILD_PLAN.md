@@ -93,6 +93,35 @@ Dabei gelten folgende Regeln:
 
 Ziel ist nicht, den Menschen möglichst schnell zu einem weiß zu bringen. Ziel ist, einen nächsten Satz zu finden, den genau dieser Mensch ehrlich verstehen und beurteilen kann.
 
+## 1.2 Ungewöhnliche Denkwege bewahren
+
+Menschen denken nicht immer linear. Eine Idee kann als Bild, Sprung, Widerspruch, Metapher, einzelnes Wort oder Verbindung zwischen scheinbar fremden Bereichen beginnen. Auf den ersten Blick kann sie unlogisch oder absurd wirken. Ihre innere Struktur kann erst nach mehreren Schritten sichtbar werden.
+
+Versteh-Mir darf solche Gedanken weder vorschnell verwerfen noch vorschnell als genial bestätigen.
+
+Verbindlicher Grundsatz:
+
+> Das zunächst Unverständliche bleibt offen, bis der Mensch seine Verbindung zeigen konnte. Die KI hilft beim Freilegen der Struktur, ohne sie für ihn zu erfinden.
+
+Daraus folgen diese Regeln:
+
+- Die ursprünglichen Wörter und Fragmente des Menschen bleiben unverändert erhalten.
+- Eine ungewöhnliche Aussage wird nicht automatisch in eine gewöhnliche Standardlösung umgeschrieben.
+- Die KI fragt nach Beziehungen: „Was verbindet A und B für dich?“
+- Eine vom Menschen genannte Beziehung wird als seine Aussage gespeichert.
+- Eine von der KI vermutete Beziehung bleibt ausdrücklich eine unbestätigte Hypothese.
+- Bestätigung und Ablehnung verändern nicht rückwirkend die ursprüngliche Aussage.
+- Widersprüchliche Fragmente dürfen zunächst nebeneinander bestehen.
+- Kohärenz muss nicht innerhalb einer einzelnen Antwort entstehen.
+- Wiederkehrende Begriffe oder Beziehungen dürfen als mögliches Muster gezeigt werden, aber nur mit einer Bestätigungsfrage.
+- Die KI darf kleine Beispiele, Gegenbeispiele oder sichere Gedankenexperimente anbieten, um eine Beziehung prüfbar zu machen.
+- Erst bestätigte Beziehungen dürfen eine Spezifikation oder Handlung begründen.
+- Das System bewertet den Menschen nicht als logisch, unlogisch, begabt, krank, genial oder verwirrt.
+- Es entsteht keine psychologische Diagnose und kein dauerhaftes Denkprofil.
+- Die Bedeutungslandkarte gehört nur zur aktuellen Aufgabe oder Sitzung, sofern der Mensch keine Speicherung verlangt.
+
+Der Erfolg besteht nicht darin, jede ungewöhnliche Idee als richtig zu erklären. Der Erfolg besteht darin, sie lange genug unverfälscht zu halten, damit ihre mögliche Struktur gemeinsam geprüft werden kann.
+
 ## 2. Unverhandelbare Eigenschaften
 
 1. Lokal zuerst.
@@ -120,6 +149,11 @@ Ziel ist nicht, den Menschen möglichst schnell zu einem weiß zu bringen. Ziel 
 18. „Ich weiß es nicht“ wird angenommen und löst keinen erfundenen Plan aus.
 19. Die Sprache passt sich anhand ausdrücklicher Signale und Aussagen an, nicht anhand eines vermuteten Nutzerprofils.
 20. Wenn keine Verständigung gelingt, wird die Grenze offen benannt statt Zustimmung zu erzeugen.
+21. Ungewöhnliche, nichtlineare oder zunächst widersprüchliche Gedanken werden bewahrt, bevor sie bewertet oder normalisiert werden.
+22. Die Originalworte des Menschen werden nie durch eine KI-Interpretation überschrieben.
+23. Beziehungen und Muster bleiben Hypothesen, bis der Mensch sie bestätigt.
+24. Nur bestätigte Bedeutungsbeziehungen dürfen einen Plan begründen.
+25. Versteh-Mir erstellt keine psychologische Diagnose und bewertet weder Intelligenz noch Genialität.
 
 ## 3. Was der erste nutzbare Stand leisten muss
 
@@ -128,20 +162,22 @@ Der erste nutzbare Stand, im Folgenden MVP genannt, beherrscht einen vollständi
 1. Der Mensch spricht oder tippt, was er gerade sagen kann: Wunsch, Problem, Beobachtung, Gefühl, einzelnes Wort oder „Ich habe keinen Plan“.
 2. Versteh-Mir speichert die ursprünglichen Wörter und trennt Bekanntes, Unbekanntes und unbestätigte Möglichkeiten.
 3. Reicht das Gesagte noch nicht für einen prüfbaren Wunsch, beginnt der Orientierungsmodus.
-4. Versteh-Mir spiegelt nur die kleinste sicher bekannte Aussage.
-5. Der Mensch reagiert mit weiß, unsicher oder gar nichts.
-6. Bei unsicher wird genau eine gezielte Frage gestellt.
-7. Die freie Antwort auf diese Frage wird angenommen und der Stand wird neu gespiegelt.
-8. Bei gar nichts wird genau ein benannter Begriff erklärt oder eine Verständnisebene zurückgegangen.
-9. Bei „Ich weiß es nicht“ wechselt Versteh-Mir die Frage oder Darstellungsform, ohne eine Antwort zu erfinden.
-10. Sobald ein kleiner, ehrlicher und prüfbarer nächster Zweck gefunden ist, wird daraus die Bedeutungsfassung für Gate 1.
-11. Beim ersten weiß erhält der Agent nur die Erlaubnis, einen Plan zu erstellen. Er darf noch nichts verändern.
-12. Der Agent liefert einen strukturierten Plan.
-13. Versteh-Mir erklärt die konkrete Wirkung dieses Plans in der Sprache dieses Menschen.
-14. Der Mensch reagiert erneut mit weiß, unsicher oder gar nichts.
-15. Nur das zweite weiß erzeugt eine einmalige technische Ausführungsfreigabe.
-16. Der Capability Broker führt nur die exakt genehmigten Operationen aus.
-17. Versteh-Mir zeigt anschließend verständlich, was tatsächlich passiert ist.
+4. Enthält das Gesagte ungewöhnliche, nichtlineare oder noch unverbundene Fragmente, darf daraus ein Erkundungsmodus entstehen.
+5. Versteh-Mir spiegelt nur die kleinste sicher bekannte Aussage oder Beziehung.
+6. Der Mensch reagiert mit weiß, unsicher oder gar nichts.
+7. Bei unsicher wird genau eine gezielte Frage gestellt.
+8. Die freie Antwort auf diese Frage wird angenommen und der Stand wird neu gespiegelt.
+9. Bei gar nichts wird genau ein benannter Begriff erklärt oder eine Verständnisebene zurückgegangen.
+10. Bei „Ich weiß es nicht“ wechselt Versteh-Mir die Frage oder Darstellungsform, ohne eine Antwort zu erfinden.
+11. Eine ungewöhnliche Verbindung bleibt offen, bis der Mensch sie bestätigt, ablehnt oder weiter erklärt.
+12. Sobald ein kleiner, ehrlicher und prüfbarer nächster Zweck gefunden ist, wird daraus die Bedeutungsfassung für Gate 1.
+13. Beim ersten weiß erhält der Agent nur die Erlaubnis, einen Plan zu erstellen. Er darf noch nichts verändern.
+14. Der Agent liefert einen strukturierten Plan.
+15. Versteh-Mir erklärt die konkrete Wirkung dieses Plans in der Sprache dieses Menschen.
+16. Der Mensch reagiert erneut mit weiß, unsicher oder gar nichts.
+17. Nur das zweite weiß erzeugt eine einmalige technische Ausführungsfreigabe.
+18. Der Capability Broker führt nur die exakt genehmigten Operationen aus.
+19. Versteh-Mir zeigt anschließend verständlich, was tatsächlich passiert ist.
 
 Für das MVP wird dieser Kreis zuerst mit einem kontrollierten Demo-Adapter bewiesen. Eine echte Agent-Anbindung folgt erst, wenn das Handlungstor nachweisbar funktioniert.
 
@@ -214,6 +250,46 @@ Die Abholschleife endet nicht nach einer festen Zahl von Fragen. Sie endet, wenn
 
 Versteh-Mir darf niemals Müdigkeit, Verwirrung oder wiederholtes „Ich weiß es nicht“ ausnutzen, um eine eigene Empfehlung als menschliche Entscheidung auszugeben.
 
+### Stufe 0b: Den persönlichen Denkweg erkunden
+
+Diese Stufe ist für Gedanken, deren Verbindung noch nicht in einer linearen Erklärung sichtbar ist.
+
+Beispiel:
+
+> Der Tresor ist wie ein Container, aber vielleicht müssen Tresore miteinander reden und später eine Identität haben.
+
+Versteh-Mir macht daraus nicht sofort eine bekannte Standardarchitektur. Es zerlegt die Aussage zunächst ohne Verlust:
+
+- Tresor und Container wurden vom Menschen verbunden.
+- Mehrere Tresore und Kommunikation wurden verbunden.
+- Identität wurde als späterer Gedanke genannt.
+- Wie diese Beziehungen genau gemeint sind, ist noch offen.
+
+Die nächste Frage behandelt nur eine Verbindung:
+
+> Was ist für dich bei Tresor und Container gleich?
+
+Oder:
+
+> Warum braucht ein Tresor in deiner Vorstellung eine eigene Identität?
+
+Der Ablauf:
+
+1. Originalfragment unverändert bewahren.
+2. Begriffe als Knoten der aktuellen Bedeutungslandkarte anlegen.
+3. Nur ausdrücklich genannte Beziehungen als bestätigt eintragen.
+4. KI-Vermutungen als offene Hypothesen markieren.
+5. Genau eine Beziehung spiegeln oder erfragen.
+6. weiß bestätigt nur diese Beziehung.
+7. unsicher hält sie offen und fragt konkreter.
+8. gar nichts erklärt einen Begriff oder wechselt die Darstellung.
+9. Spätere Aussagen dürfen frühere Fragmente verbinden, ohne deren Ursprung zu löschen.
+10. Erst ein bestätigter Teil der Landkarte darf in IntentSpec überführt werden.
+
+Die Bedeutungslandkarte ist kein Diagramm, das der Mensch bedienen muss. Sie ist ein internes Gedächtnis der aktuellen Verständigung. Die Oberfläche zeigt weiterhin nur einen Satz, eine Beziehung oder eine Frage.
+
+Wenn sich keine tragfähige Verbindung zeigt, bleibt die Idee offen. Versteh-Mir nennt sie weder Unsinn noch Durchbruch.
+
 ### Gate 1: Bedeutung
 
 Der Spiegel-Satz enthält in einfacher Sprache:
@@ -264,8 +340,13 @@ Die Zustandsmaschine liegt als reine, deterministische Kernlogik vor. UI, Übers
 
 | Zustand | Erlaubte Eingabe | Nächster Zustand | Seiteneffekt |
 |---|---|---|---|
-| idle | beliebige menschliche Aussage | orienting oder review_intent | Originalworte erfassen; noch keinen Agenten aufrufen |
-| orienting | freie menschliche Antwort | orienting oder review_intent | Bekanntes und Unbekanntes aktualisieren; höchstens eine Frage stellen |
+| idle | beliebige menschliche Aussage | orienting, exploring oder review_intent | Originalworte erfassen; noch keinen Agenten aufrufen |
+| orienting | freie menschliche Antwort | orienting, exploring oder review_intent | Bekanntes und Unbekanntes aktualisieren; höchstens eine Frage stellen |
+| exploring | neues Fragment oder erklärte Beziehung | exploring oder review_intent | Original bewahren; genau eine Beziehung ergänzen oder prüfen |
+| exploring | weiß | exploring oder review_intent | nur die aktuell gezeigte Beziehung bestätigen |
+| exploring | unsicher | exploring | Beziehung offenhalten und genau eine konkretere Frage stellen |
+| exploring | gar nichts | exploring | einen Begriff erklären oder dieselbe Beziehung anders darstellen |
+| exploring | spätere Verbindung | exploring | neue bestätigte Kante ergänzen; frühere Fragmente nicht überschreiben |
 | orienting | weiß | orienting oder review_intent | nur den aktuellen kleinen Sinnschritt bestätigen |
 | orienting | unsicher | orienting | an den eigenen Worten ansetzen und eine konkretere Frage stellen |
 | orienting | gar nichts | orienting | einen benannten Begriff erklären oder eine Ebene zurückgehen |
@@ -348,11 +429,35 @@ type LabeledHypothesis = {
   confirmed: false;
 };
 
+type MeaningNode = {
+  id: string;
+  label: string;
+  originalQuote: string;
+  status: "expressed" | "confirmed" | "open";
+};
+
+type MeaningEdge = {
+  id: string;
+  from: string;
+  to: string;
+  relation: string;
+  origin: "human" | "ai_hypothesis";
+  evidence: string | null;
+  status: "open" | "confirmed" | "rejected";
+};
+
+type MeaningMap = {
+  sessionId: string;
+  nodes: MeaningNode[];
+  edges: MeaningEdge[];
+};
+
 type OrientationState = {
   originalWords: string[];
   knownFacts: GroundedFact[];
   unknowns: string[];
   hypotheses: LabeledHypothesis[];
+  meaningMap: MeaningMap;
   currentReflection: string;
   currentQuestion: string | null;
   representationHistory: Array<"plain" | "example" | "comparison" | "visual">;
@@ -423,6 +528,10 @@ Anforderungen:
 - Alle externen Daten werden zur Laufzeit gegen ein Schema validiert.
 - Jeder bekannte Fakt besitzt eine Herkunft und einen belegenden Ausschnitt.
 - Hypothesen bleiben sichtbar unbestätigt und dürfen keine Handlung begründen.
+- MeaningNode bewahrt das Originalzitat; eine spätere Interpretation ersetzt es nicht.
+- Eine MeaningEdge mit origin ai_hypothesis darf erst nach menschlicher Bestätigung den Status confirmed erhalten.
+- Abgelehnte Beziehungen bleiben für die aktuelle Nachvollziehbarkeit markiert, begründen aber keine Spezifikation.
+- Nur der bestätigte Teil der sitzungsgebundenen MeaningMap darf in IntentSpec einfließen.
 - representationHistory beschreibt nur bereits versuchte Darstellungsformen; es ist keine Bewertung oder Rangfolge des Menschen.
 - Aus Ausdruck, Rechtschreibung oder Antworttempo wird kein Fähigkeitsprofil berechnet.
 - planHash wird aus einer stabil kanonisierten Form des vollständigen Plans erzeugt.
@@ -550,6 +659,18 @@ interface MeaningEngine {
     state: OrientationState,
     reason: "unsicher" | "gar_nichts" | "keine_antwort"
   ): Promise<OrientationState>;
+  exploreConnection(
+    map: MeaningMap,
+    input: string
+  ): Promise<MeaningMap>;
+  proposePattern(
+    map: MeaningMap
+  ): Promise<{ relation: MeaningEdge; question: string } | null>;
+  confirmConnection(
+    map: MeaningMap,
+    edgeId: string,
+    signal: Signal
+  ): Promise<MeaningMap>;
   mirrorIntent(input: string): Promise<IntentSpec>;
   askIntentQuestion(intent: IntentSpec): Promise<string>;
   applyIntentAnswer(intent: IntentSpec, answer: string): Promise<IntentSpec>;
@@ -564,6 +685,9 @@ Regeln:
 
 - Der individuelle Ausgangspunkt wird aus ausdrücklichen Aussagen und Signalen aufgebaut, nicht aus vermuteten persönlichen Eigenschaften.
 - Die Engine muss bekannte Fakten, Unbekanntes und Hypothesen getrennt ausgeben.
+- Sie bewahrt ungewöhnliche Fragmente und Beziehungen, auch wenn noch keine lineare Bedeutung erkennbar ist.
+- Sie darf wiederkehrende Muster nur als bestätigungspflichtige Hypothese zeigen.
+- Sie erzeugt keine Bewertung der Intelligenz, Persönlichkeit oder psychischen Verfassung.
 - Sie beginnt mit den Wörtern des Menschen und verändert pro Schritt nur so viel wie nötig.
 - Bei wiederholtem Nichtverstehen wechselt sie Darstellungsform oder geht konzeptuell zurück.
 - Sie optimiert nicht auf schnelle Zustimmung.
@@ -785,6 +909,8 @@ Aufgaben:
 
 - Zustandsmaschine aus Abschnitt 6 implementieren.
 - Orientierungsmodus und Abholschleife vor Gate 1 implementieren.
+- Erkundungsmodus für ungewöhnliche und nichtlineare Gedanken implementieren.
+- sitzungsgebundene MeaningMap mit Originalzitaten, belegten Beziehungen und KI-Hypothesen implementieren.
 - bekannte Fakten, Unbekanntes und gekennzeichnete Hypothesen getrennt halten.
 - Eingaben wie „Ich habe keinen Plan“ und „Ich weiß es nicht“ als gültige Zustände verarbeiten.
 - eine Ebene zurückgehen und die Darstellungsform wechseln können.
@@ -799,6 +925,8 @@ Aufgaben:
 Abnahme:
 
 - Ein Mensch kann ohne Ziel oder Plan beginnen und wird schrittweise zu einem kleinen prüfbaren nächsten Zweck geführt.
+- Ungewöhnliche Fragmente bleiben erhalten und können über mehrere Schritte zu einer bestätigten Beziehung verbunden werden.
+- Eine KI-Hypothese kann ohne menschliche Bestätigung nicht in IntentSpec gelangen.
 - Kein Ziel, Wissen oder Motiv wird ohne Beleg in IntentSpec übernommen.
 - Wiederholtes Nichtwissen erzeugt weder Druck noch einen erfundenen Plan.
 - Alle Signal- und Zustandsübergänge sind getestet.
@@ -923,6 +1051,14 @@ Mindestens folgende Fälle müssen automatisiert geprüft werden:
 - Ein sicherer Orientierungsschritt ist lesend, begrenzt und selbst Gegenstand eines weiß.
 - Der Mensch kann jederzeit pausieren oder abbrechen.
 - Wenn keine Verständigung gelingt, behauptet das System keinen Erfolg.
+- Nichtlineare Fragmente werden nicht automatisch in eine Standardlösung umgeschrieben.
+- Originalzitate bleiben bei späteren Interpretationen erhalten.
+- Eine Beziehung zwischen zwei Begriffen wird nicht ohne menschlichen Beleg als Fakt gespeichert.
+- Wiederkehrende Muster werden als Frage gezeigt, nicht als Diagnose.
+- Eine abgelehnte KI-Hypothese begründet keine Spezifikation.
+- Ein später bestätigter Zusammenhang darf frühere Fragmente verbinden.
+- Das System vergibt keine Labels wie unlogisch, genial, krank oder verwirrt.
+- Die MeaningMap bleibt auf die aktuelle Sitzung oder Aufgabe begrenzt.
 
 ### Signal und Herkunft
 
@@ -975,6 +1111,9 @@ Mindestens folgende Fälle müssen automatisiert geprüft werden:
 - Kein Plan → Abholschleife → kleiner Orientierungszweck → weiß → lesender Plan.
 - Wiederholt „Ich weiß es nicht“ → andere Darstellung → keine erfundene Entscheidung.
 - Einzelnes Alltagswort → Spiegelung → eine Frage → prüfbarer Wunsch.
+- Unverbundene Fragmente → Beziehungsfrage → bestätigte MeaningMap → kleiner prüfbarer Zweck.
+- KI vermutet ein Muster → Mensch sagt unsicher → Muster bleibt offen und löst keine Planung aus.
+- Spätere Erklärung verbindet frühe Fragmente → Originale bleiben nachvollziehbar.
 - Wunsch → weiß → Plan → weiß → exakt eine erlaubte Änderung → Ergebnis.
 - Wunsch → unsicher → Antwort → neuer Spiegel → weiß.
 - Plan → gar nichts → Begriffserklärung → Plan bleibt unverändert.
@@ -991,6 +1130,9 @@ Das MVP ist nur fertig, wenn alle Punkte wahr sind:
 - [ ] Demo- und Manual-Adapter funktionieren.
 - [ ] Ein Mensch kann ohne Plan, Fachwort oder fertiges Ziel beginnen.
 - [ ] Die Abholschleife geht individuell zurück, ohne Wissen oder Absicht zu vermuten.
+- [ ] Ungewöhnliche Denkwege werden erkundet, ohne sie vorschnell zu normalisieren oder zu bewerten.
+- [ ] Originalfragmente und bestätigte Beziehungen bleiben nachvollziehbar.
+- [ ] Nur vom Menschen bestätigte Beziehungen dürfen eine Handlung begründen.
 - [ ] Bekannte Fakten, Unbekanntes und Hypothesen bleiben getrennt.
 - [ ] „Ich weiß es nicht“ ist ein funktionierender Pfad und keine Sackgasse.
 - [ ] Der Mensch kann unsicher mit freier Antwort fortsetzen.
@@ -1038,14 +1180,16 @@ Erwartete Lieferung:
 2. eigenständig startbares TypeScript-Projekt,
 3. reine Zustandsmaschine,
 4. Orientierungsmodus mit individueller Abholschleife,
-5. belegte Trennung von bekannten Fakten, Unbekanntem und Hypothesen,
-6. korrigierter Klarstellungsfluss,
-7. exakte drei Signale,
-8. Demo- und Manual-Adapter ohne Netzwerk,
-9. minimales Fenster mit Orientierung und zwei klaren Gates,
-10. vollständige Unit-Tests für alle Übergänge,
-11. aktualisierte Startanleitung,
-12. Bericht über Abweichungen zwischen altem Code und diesem Plan.
+5. Erkundungsmodus mit sitzungsgebundener MeaningMap,
+6. Originalzitate, belegte Beziehungen und getrennte KI-Hypothesen,
+7. belegte Trennung von bekannten Fakten, Unbekanntem und Hypothesen,
+8. korrigierter Klarstellungsfluss,
+9. exakte drei Signale,
+10. Demo- und Manual-Adapter ohne Netzwerk,
+11. minimales Fenster mit Orientierung, Erkundung und zwei klaren Gates,
+12. vollständige Unit-Tests für alle Übergänge,
+13. aktualisierte Startanleitung,
+14. Bericht über Abweichungen zwischen altem Code und diesem Plan.
 
 Noch nicht liefern:
 
