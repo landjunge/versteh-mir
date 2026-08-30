@@ -2,25 +2,34 @@
 
 Stand: 30. August 2026  
 Repo: https://github.com/landjunge/versteh-mir  
-Status: verbindliche technische Zielbeschreibung für die nächste Implementierung
+Status: verbindliche technische Roadmap für die nächste Implementierung
 
-Dieser Bauplan erweitert den ersten Entwurf in docs/PLAN.md. Der alte Plan bleibt als Ursprung der Idee erhalten. Bei Widersprüchen für neue Implementierungen gilt dieses Dokument.
+Dokumentenhierarchie:
+
+1. docs/CORE_PROTOCOL.md ist verbindlich für Produktverhalten, Nutzerfluss, Bedeutungsaufbau und Freigabegrenzen.
+2. Dieses Dokument ist verbindlich für technische Architektur, Arbeitsetappen und Abnahmereihenfolge.
+3. docs/IDEA.md, docs/BRAINSTORM.md und docs/PLAN.md dokumentieren Ursprung und frühere Entwürfe.
+
+Bei einem Widerspruch gewinnt für das Verhalten CORE_PROTOCOL.md und für die technische Sicherheitsgrenze jeweils die strengere Regel.
 
 ## 0. Auftrag an die bauende KI
 
 Lies vor jeder Änderung in dieser Reihenfolge:
 
 1. README.md
-2. docs/IDEA.md
-3. docs/BRAINSTORM.md
-4. docs/PLAN.md
-5. dieses Dokument
-6. den vorhandenen Quellcode und alle Tests
+2. docs/CORE_PROTOCOL.md vollständig
+3. docs/IDEA.md
+4. docs/BRAINSTORM.md
+5. docs/PLAN.md als historischen Entwurf
+6. dieses Dokument vollständig
+7. den vorhandenen Quellcode und alle Tests
 
 Arbeite danach ausschließlich etappenweise. Eine Etappe wird vollständig getestet und dokumentiert, bevor die nächste beginnt.
 
 Verbindliche Regeln:
 
+- CORE_PROTOCOL.md nicht verkürzen, umgehen oder als bloße Empfehlung behandeln.
+- Orientierung, Erkundung, Spiegelung und Erklärung als Strategien derselben Understanding Loop bauen, nicht als getrennte Produkte oder vom Menschen zu wählende Modi.
 - Nicht raten und keine fehlende Integration vortäuschen.
 - Keine Browser-Cookies, Sitzungstoken oder Zugangsdaten aus fremden Dateien auslesen.
 - Keine vorhandene Sitzung durch Scraping oder inoffizielle Umgehungen kapern.
@@ -337,6 +346,8 @@ Fehler werden konkret benannt. Ein Fehler führt nicht automatisch zu einem neue
 ## 6. Zustandsmaschine
 
 Die Zustandsmaschine liegt als reine, deterministische Kernlogik vor. UI, Übersetzungsmodell und Adapter dürfen Zustände nicht direkt verändern, sondern senden typisierte Ereignisse.
+
+Normativ gilt docs/CORE_PROTOCOL.md: orienting und exploring sind interne Strategien beziehungsweise Subzustände derselben Understanding Loop. Sie erscheinen nicht als wählbare Produktmodi. Die folgenden Namen dürfen intern im Reducer verwendet werden, solange dieselbe öffentliche Zustandsmaschine, Oberfläche und Sicherheitslogik alle Ausgangslagen trägt.
 
 | Zustand | Erlaubte Eingabe | Nächster Zustand | Seiteneffekt |
 |---|---|---|---|
@@ -743,6 +754,7 @@ versteh-mir/
     IDEA.md
     BRAINSTORM.md
     PLAN.md
+    CORE_PROTOCOL.md
     BUILD_PLAN.md
     SECURITY_MODEL.md
   src/
@@ -907,10 +919,15 @@ Ziel: Der vollständige Signal-Kreis funktioniert ohne echten Agenten.
 
 Aufgaben:
 
+- SharedUnderstanding, UnderstandingAtom und Provenienztypen aus CORE_PROTOCOL.md implementieren.
+- eine gemeinsame Understanding Loop mit deterministischer Next-Step-Policy implementieren.
 - Zustandsmaschine aus Abschnitt 6 implementieren.
-- Orientierungsmodus und Abholschleife vor Gate 1 implementieren.
-- Erkundungsmodus für ungewöhnliche und nichtlineare Gedanken implementieren.
+- Orientierungsmodus und Abholschleife als interne Strategie vor Gate 1 implementieren.
+- Erkundungsmodus für ungewöhnliche und nichtlineare Gedanken als zweite interne Strategie implementieren.
+- keine Strategieauswahl oder Nutzerklassifikation in die UI aufnehmen.
 - sitzungsgebundene MeaningMap mit Originalzitaten, belegten Beziehungen und KI-Hypothesen implementieren.
+- die vier Golden Journeys als maschinenlesbare Fixtures clear-intent, no-plan, nonlinear-idea und cannot-follow anlegen.
+- alle vier Fixtures durch dieselbe öffentliche State Machine und UI laufen lassen.
 - bekannte Fakten, Unbekanntes und gekennzeichnete Hypothesen getrennt halten.
 - Eingaben wie „Ich habe keinen Plan“ und „Ich weiß es nicht“ als gültige Zustände verarbeiten.
 - eine Ebene zurückgehen und die Darstellungsform wechseln können.
@@ -924,6 +941,9 @@ Aufgaben:
 
 Abnahme:
 
+- Die vier Golden Journeys aus CORE_PROTOCOL.md laufen reproduzierbar durch dieselbe Understanding Loop.
+- Es gibt keinen sichtbaren Anfänger-, Orientierungs- oder Ideenmodus.
+- Die Next-Step-Policy und nicht ein freier Modelltext wählt die nächste Prozessaktion.
 - Ein Mensch kann ohne Ziel oder Plan beginnen und wird schrittweise zu einem kleinen prüfbaren nächsten Zweck geführt.
 - Ungewöhnliche Fragmente bleiben erhalten und können über mehrere Schritte zu einer bestätigten Beziehung verbunden werden.
 - Eine KI-Hypothese kann ohne menschliche Bestätigung nicht in IntentSpec gelangen.
@@ -1035,6 +1055,8 @@ Aufgaben:
 
 ## 19. Pflicht-Tests
 
+Die vier Golden-Journey-Fixtures aus docs/CORE_PROTOCOL.md sind die oberste Ende-zu-Ende-Referenz. Die folgenden Tests ergänzen sie und dürfen ihre Invarianten nicht abschwächen.
+
 Mindestens folgende Fälle müssen automatisiert geprüft werden:
 
 ### Orientierung und individuelles Abholen
@@ -1128,6 +1150,8 @@ Das MVP ist nur fertig, wenn alle Punkte wahr sind:
 - [ ] Lokales Fenster startet ohne API-Key.
 - [ ] Status nennt den echten Adapter.
 - [ ] Demo- und Manual-Adapter funktionieren.
+- [ ] Alle vier Golden Journeys nutzen dieselbe Oberfläche, State Machine und Sicherheitslogik.
+- [ ] Understanding Loop und Next-Step-Policy entsprechen CORE_PROTOCOL.md.
 - [ ] Ein Mensch kann ohne Plan, Fachwort oder fertiges Ziel beginnen.
 - [ ] Die Abholschleife geht individuell zurück, ohne Wissen oder Absicht zu vermuten.
 - [ ] Ungewöhnliche Denkwege werden erkundet, ohne sie vorschnell zu normalisieren oder zu bewerten.
@@ -1178,18 +1202,21 @@ Erwartete Lieferung:
 
 1. kurze Bestandsanalyse der vorhandenen Dateien,
 2. eigenständig startbares TypeScript-Projekt,
-3. reine Zustandsmaschine,
-4. Orientierungsmodus mit individueller Abholschleife,
-5. Erkundungsmodus mit sitzungsgebundener MeaningMap,
-6. Originalzitate, belegte Beziehungen und getrennte KI-Hypothesen,
-7. belegte Trennung von bekannten Fakten, Unbekanntem und Hypothesen,
-8. korrigierter Klarstellungsfluss,
-9. exakte drei Signale,
-10. Demo- und Manual-Adapter ohne Netzwerk,
-11. minimales Fenster mit Orientierung, Erkundung und zwei klaren Gates,
-12. vollständige Unit-Tests für alle Übergänge,
-13. aktualisierte Startanleitung,
-14. Bericht über Abweichungen zwischen altem Code und diesem Plan.
+3. SharedUnderstanding, UnderstandingAtom und Provenienztypen,
+4. gemeinsame Understanding Loop mit deterministischer Next-Step-Policy,
+5. vier maschinenlesbare Golden-Journey-Fixtures,
+6. reine Zustandsmaschine,
+7. Orientierungsstrategie mit individueller Abholschleife,
+8. Erkundungsstrategie mit sitzungsgebundener MeaningMap,
+9. Originalzitate, belegte Beziehungen und getrennte KI-Hypothesen,
+10. belegte Trennung von bekannten Fakten, Unbekanntem und Hypothesen,
+11. korrigierter Klarstellungsfluss,
+12. exakte drei Signale,
+13. Demo- und Manual-Adapter ohne Netzwerk,
+14. ein minimales Fenster für alle Ausgangslagen und zwei klare Gates,
+15. vollständige Unit-Tests für alle Übergänge,
+16. aktualisierte Startanleitung,
+17. Bericht über Abweichungen zwischen vorhandenem Code, CORE_PROTOCOL.md und diesem Plan.
 
 Noch nicht liefern:
 
