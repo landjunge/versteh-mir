@@ -55,6 +55,44 @@ Das Produkt löst eine asymmetrische Situation:
 
 Versteh-Mir behauptet nicht, menschliches Verständnis beweisen zu können. Es erzwingt einen sichtbaren Verständigungsprozess und eine eindeutige, begrenzte Zustimmung.
 
+## 1.1 Das Abholprinzip
+
+Versteh-Mir setzt keinen fertigen Plan, kein technisches Vokabular und kein Mindestwissen voraus.
+
+Der Mensch darf mit einem klaren Auftrag beginnen. Er darf aber ebenso sagen:
+
+- „Ich habe keinen Plan.“
+- „Ich weiß nicht, wo ich anfangen soll.“
+- „Irgendetwas stimmt nicht.“
+- „Ich kann gerade nicht mehr folgen.“
+- nur ein einzelnes Wort, ein Gefühl oder eine unvollständige Beobachtung.
+
+Das ist kein fehlerhafter Prompt. Genau dort beginnt die Unterstützung.
+
+Verbindlicher Grundsatz:
+
+> Versteh-Mir geht so viele Ebenen zurück, wie dieser einzelne Mensch es braucht, und versucht ihn dort abzuholen, wo er tatsächlich steht – nicht dort, wo ein durchschnittlicher Nutzer stehen müsste.
+
+Dabei gelten folgende Regeln:
+
+- Wissen, Ziel, Fähigkeiten, Belastbarkeit und gewünschte Sprachebene werden nie aus Alter, Beruf, Rechtschreibung, Ausdruck oder bisheriger Erfahrung vermutet.
+- Als bekannt gilt nur, was der Mensch ausdrücklich gesagt oder nach sichtbarer, freigegebener Untersuchung bestätigt hat.
+- Vermutungen werden getrennt als unbestätigte Möglichkeiten gekennzeichnet.
+- Die KI verwendet zuerst die eigenen Wörter des Menschen.
+- Pro Schritt wird nur eine Frage, ein Begriff oder eine Entscheidung behandelt.
+- unsicher führt zu einer konkreteren Frage auf derselben Ebene.
+- gar nichts führt eine Ebene zurück: einfachere Wörter, ein Beispiel, ein Vergleich oder eine andere Darstellungsform.
+- Dieselbe Erklärung wird nicht nur länger wiederholt. Wenn sie nicht ankommt, wird der Zugang gewechselt.
+- „Ich weiß es nicht“ ist eine vollständige und zulässige Antwort.
+- Wenn der Mensch keine Antwort geben kann, darf Versteh-Mir einen kleinen, sicheren und umkehrbaren Orientierungsschritt vorschlagen.
+- Das Tempo bestimmt der Mensch durch seine Signale. Schnelle Zustimmung ist kein Erfolgsmaß.
+- Zurückgehen ist kein Scheitern, sondern Teil des Produkts.
+- Der Mensch wird nicht geprüft, bewertet, gedrängt oder bevormundet.
+- Wenn Versteh-Mir den Menschen trotz verschiedener Versuche nicht erreicht, sagt es das offen und bietet Pause, eine andere Darstellung oder menschliche Hilfe an.
+- Eine persönliche Anpassung gilt für die aktuelle Verständigung. Es entsteht kein dauerhaftes Personenprofil ohne ausdrückliche Zustimmung.
+
+Ziel ist nicht, den Menschen möglichst schnell zu einem weiß zu bringen. Ziel ist, einen nächsten Satz zu finden, den genau dieser Mensch ehrlich verstehen und beurteilen kann.
+
 ## 2. Unverhandelbare Eigenschaften
 
 1. Lokal zuerst.
@@ -76,24 +114,34 @@ Versteh-Mir behauptet nicht, menschliches Verständnis beweisen zu können. Es e
 12. Keine Telemetrie und keine Verlaufsübertragung durch Versteh-Mir.
 13. Barrierefreiheit ist Bestandteil des Kerns.
 14. Versteh-Mir bleibt ein eigenes Produkt ohne Abhängigkeit zu anderen Landjunge-Projekten.
+15. Ein fertiger Plan oder ein Mindestwissen ist niemals Voraussetzung.
+16. Versteh-Mir beginnt beim individuellen Menschen und geht bei Bedarf beliebig viele Verständnisebenen zurück.
+17. Wissen und Absichten werden nicht vermutet; Fakten und Hypothesen bleiben getrennt.
+18. „Ich weiß es nicht“ wird angenommen und löst keinen erfundenen Plan aus.
+19. Die Sprache passt sich anhand ausdrücklicher Signale und Aussagen an, nicht anhand eines vermuteten Nutzerprofils.
+20. Wenn keine Verständigung gelingt, wird die Grenze offen benannt statt Zustimmung zu erzeugen.
 
 ## 3. Was der erste nutzbare Stand leisten muss
 
 Der erste nutzbare Stand, im Folgenden MVP genannt, beherrscht einen vollständigen Kreis:
 
-1. Der Mensch spricht oder tippt einen Wunsch.
-2. Versteh-Mir erzeugt eine kurze, prüfbare Bedeutungsfassung.
-3. Der Mensch reagiert mit weiß, unsicher oder gar nichts.
-4. Bei unsicher wird genau eine gezielte Frage gestellt.
-5. Die freie Antwort auf diese Frage wird angenommen und die Bedeutungsfassung wird neu erzeugt.
-6. Bei gar nichts wird genau ein benannter Begriff in einem Satz erklärt.
-7. Beim ersten weiß erhält der Agent nur die Erlaubnis, einen Plan zu erstellen. Er darf noch nichts verändern.
-8. Der Agent liefert einen strukturierten Plan.
-9. Versteh-Mir erklärt die konkrete Wirkung dieses Plans in einfacher Sprache.
-10. Der Mensch reagiert erneut mit weiß, unsicher oder gar nichts.
-11. Nur das zweite weiß erzeugt eine einmalige technische Ausführungsfreigabe.
-12. Der Capability Broker führt nur die exakt genehmigten Operationen aus.
-13. Versteh-Mir zeigt anschließend verständlich, was tatsächlich passiert ist.
+1. Der Mensch spricht oder tippt, was er gerade sagen kann: Wunsch, Problem, Beobachtung, Gefühl, einzelnes Wort oder „Ich habe keinen Plan“.
+2. Versteh-Mir speichert die ursprünglichen Wörter und trennt Bekanntes, Unbekanntes und unbestätigte Möglichkeiten.
+3. Reicht das Gesagte noch nicht für einen prüfbaren Wunsch, beginnt der Orientierungsmodus.
+4. Versteh-Mir spiegelt nur die kleinste sicher bekannte Aussage.
+5. Der Mensch reagiert mit weiß, unsicher oder gar nichts.
+6. Bei unsicher wird genau eine gezielte Frage gestellt.
+7. Die freie Antwort auf diese Frage wird angenommen und der Stand wird neu gespiegelt.
+8. Bei gar nichts wird genau ein benannter Begriff erklärt oder eine Verständnisebene zurückgegangen.
+9. Bei „Ich weiß es nicht“ wechselt Versteh-Mir die Frage oder Darstellungsform, ohne eine Antwort zu erfinden.
+10. Sobald ein kleiner, ehrlicher und prüfbarer nächster Zweck gefunden ist, wird daraus die Bedeutungsfassung für Gate 1.
+11. Beim ersten weiß erhält der Agent nur die Erlaubnis, einen Plan zu erstellen. Er darf noch nichts verändern.
+12. Der Agent liefert einen strukturierten Plan.
+13. Versteh-Mir erklärt die konkrete Wirkung dieses Plans in der Sprache dieses Menschen.
+14. Der Mensch reagiert erneut mit weiß, unsicher oder gar nichts.
+15. Nur das zweite weiß erzeugt eine einmalige technische Ausführungsfreigabe.
+16. Der Capability Broker führt nur die exakt genehmigten Operationen aus.
+17. Versteh-Mir zeigt anschließend verständlich, was tatsächlich passiert ist.
 
 Für das MVP wird dieser Kreis zuerst mit einem kontrollierten Demo-Adapter bewiesen. Eine echte Agent-Anbindung folgt erst, wenn das Handlungstor nachweisbar funktioniert.
 
@@ -116,6 +164,55 @@ Sicherheitsregeln:
 - gar nichts ohne benannten Begriff führt zu der Frage: „Welches Wort soll ich erklären?“ Es wird kein zufälliges Wort ausgewählt.
 
 ## 5. Verbindlicher Nutzerfluss
+
+### Stufe 0: Den Menschen abholen
+
+Diese Stufe beginnt, wenn der Mensch noch keinen prüfbaren Wunsch formulieren kann oder ausdrücklich sagt, dass er keinen Plan hat.
+
+Versteh-Mir fordert dann keine Spezifikation. Es hält zunächst nur fest:
+
+- welche Wörter der Mensch selbst benutzt hat,
+- was dadurch sicher bekannt ist,
+- was weiterhin unbekannt ist,
+- welche Möglichkeiten höchstens als unbestätigte Hypothesen denkbar sind.
+
+Die erste Rückmeldung enthält nur die kleinste belegte Wahrheit.
+
+Beispiel:
+
+> Du weißt gerade noch nicht, welcher Weg richtig ist, möchtest aber nicht allein an diesem Punkt stehen bleiben. Stimmt das?
+
+Nach weiß folgt genau eine Frage, die an den eigenen Worten des Menschen ansetzt. Mögliche Formen sind:
+
+- „Was soll nicht so bleiben wie jetzt?“
+- „Woran merkst du, dass es gerade nicht weitergeht?“
+- „Was wäre eine kleine Verbesserung?“
+- „Soll ich zuerst nur den aktuellen Stand ansehen und noch nichts verändern?“
+
+Diese Sätze sind Beispiele, keine feste Frageliste. Die konkrete Frage muss aus dem aktuellen Gespräch hervorgehen.
+
+Kann der Mensch auch diese Frage nicht beantworten:
+
+1. wird die fehlende Antwort akzeptiert,
+2. wird eine Ebene zurückgegangen,
+3. wird die Darstellungsform gewechselt,
+4. wird höchstens ein kleiner, sicherer Orientierungsschritt angeboten,
+5. bleibt jede technische Handlung gesperrt.
+
+Ein Orientierungsschritt kann selbst der erste prüfbare Wunsch werden:
+
+> Du willst noch keine Lösung auswählen; ich soll zunächst nur den freigegebenen Bereich lesen und dir genau eine mögliche nächste Richtung erklären. Stimmt das?
+
+Erst dieses weiß darf den klar genannten, schreibgeschützten Leseschritt erlauben.
+
+Die Abholschleife endet nicht nach einer festen Zahl von Fragen. Sie endet, wenn:
+
+- ein ehrlicher, kleiner nächster Zweck gefunden wurde,
+- der Mensch pausieren oder abbrechen möchte,
+- eine andere Darstellung gewünscht wird,
+- oder Versteh-Mir offen feststellen muss, dass es den Menschen gerade nicht erreicht.
+
+Versteh-Mir darf niemals Müdigkeit, Verwirrung oder wiederholtes „Ich weiß es nicht“ ausnutzen, um eine eigene Empfehlung als menschliche Entscheidung auszugeben.
 
 ### Gate 1: Bedeutung
 
@@ -167,7 +264,12 @@ Die Zustandsmaschine liegt als reine, deterministische Kernlogik vor. UI, Übers
 
 | Zustand | Erlaubte Eingabe | Nächster Zustand | Seiteneffekt |
 |---|---|---|---|
-| idle | menschlicher Wunsch | review_intent | Bedeutungsfassung erzeugen |
+| idle | beliebige menschliche Aussage | orienting oder review_intent | Originalworte erfassen; noch keinen Agenten aufrufen |
+| orienting | freie menschliche Antwort | orienting oder review_intent | Bekanntes und Unbekanntes aktualisieren; höchstens eine Frage stellen |
+| orienting | weiß | orienting oder review_intent | nur den aktuellen kleinen Sinnschritt bestätigen |
+| orienting | unsicher | orienting | an den eigenen Worten ansetzen und eine konkretere Frage stellen |
+| orienting | gar nichts | orienting | einen benannten Begriff erklären oder eine Ebene zurückgehen |
+| orienting | „Ich weiß es nicht“ oder keine Antwort | orienting | Antwort akzeptieren, Zugang wechseln oder sicheren Orientierungsschritt anbieten |
 | review_intent | weiß | planning | begrenzte Planungsfreigabe erstellen |
 | review_intent | unsicher | clarify_intent | eine Frage erzeugen |
 | review_intent | gar nichts | explain_intent | einen Begriff erklären |
@@ -235,10 +337,33 @@ Die konkrete Implementierung darf Namen leicht anpassen, die Bedeutung bleibt ve
 ~~~ts
 type Signal = "weiss" | "unsicher" | "gar_nichts";
 
+type GroundedFact = {
+  value: string;
+  source: "human" | "approved_observation";
+  evidence: string;
+};
+
+type LabeledHypothesis = {
+  value: string;
+  confirmed: false;
+};
+
+type OrientationState = {
+  originalWords: string[];
+  knownFacts: GroundedFact[];
+  unknowns: string[];
+  hypotheses: LabeledHypothesis[];
+  currentReflection: string;
+  currentQuestion: string | null;
+  representationHistory: Array<"plain" | "example" | "comparison" | "visual">;
+};
+
 type IntentSpec = {
   id: string;
   revision: number;
   originalText: string;
+  knownFacts: GroundedFact[];
+  hypotheses: LabeledHypothesis[];
   goal: string;
   target: string | null;
   constraints: string[];
@@ -296,6 +421,10 @@ type ExecutionResult = {
 Anforderungen:
 
 - Alle externen Daten werden zur Laufzeit gegen ein Schema validiert.
+- Jeder bekannte Fakt besitzt eine Herkunft und einen belegenden Ausschnitt.
+- Hypothesen bleiben sichtbar unbestätigt und dürfen keine Handlung begründen.
+- representationHistory beschreibt nur bereits versuchte Darstellungsformen; es ist keine Bewertung oder Rangfolge des Menschen.
+- Aus Ausdruck, Rechtschreibung oder Antworttempo wird kein Fähigkeitsprofil berechnet.
 - planHash wird aus einer stabil kanonisierten Form des vollständigen Plans erzeugt.
 - Freigaben werden an sessionId, planHash, Ablaufzeit und eine einmalige Nonce gebunden.
 - Änderungen am Plan erzeugen einen neuen Hash.
@@ -412,6 +541,15 @@ Das Bedeutungsmodul ist von Agent und Adapter getrennt.
 
 ~~~ts
 interface MeaningEngine {
+  startOrientation(input: string): Promise<OrientationState>;
+  continueOrientation(
+    state: OrientationState,
+    answer: string
+  ): Promise<OrientationState | IntentSpec>;
+  stepBack(
+    state: OrientationState,
+    reason: "unsicher" | "gar_nichts" | "keine_antwort"
+  ): Promise<OrientationState>;
   mirrorIntent(input: string): Promise<IntentSpec>;
   askIntentQuestion(intent: IntentSpec): Promise<string>;
   applyIntentAnswer(intent: IntentSpec, answer: string): Promise<IntentSpec>;
@@ -424,6 +562,11 @@ interface MeaningEngine {
 
 Regeln:
 
+- Der individuelle Ausgangspunkt wird aus ausdrücklichen Aussagen und Signalen aufgebaut, nicht aus vermuteten persönlichen Eigenschaften.
+- Die Engine muss bekannte Fakten, Unbekanntes und Hypothesen getrennt ausgeben.
+- Sie beginnt mit den Wörtern des Menschen und verändert pro Schritt nur so viel wie nötig.
+- Bei wiederholtem Nichtverstehen wechselt sie Darstellungsform oder geht konzeptuell zurück.
+- Sie optimiert nicht auf schnelle Zustimmung.
 - Der Engine-Ausgang ist ein Vorschlag und wird validiert.
 - Fehlende Angaben landen in unresolved und werden nicht erfunden.
 - Die Richtung Mensch zu KI oder KI zu Mensch wird aus dem technischen Ursprung der Nachricht bestimmt, nicht durch unsichere Sprachklassifikation.
@@ -641,6 +784,10 @@ Ziel: Der vollständige Signal-Kreis funktioniert ohne echten Agenten.
 Aufgaben:
 
 - Zustandsmaschine aus Abschnitt 6 implementieren.
+- Orientierungsmodus und Abholschleife vor Gate 1 implementieren.
+- bekannte Fakten, Unbekanntes und gekennzeichnete Hypothesen getrennt halten.
+- Eingaben wie „Ich habe keinen Plan“ und „Ich weiß es nicht“ als gültige Zustände verarbeiten.
+- eine Ebene zurückgehen und die Darstellungsform wechseln können.
 - Freie Antwort nach unsicher korrekt verarbeiten.
 - Begriff nach gar nichts benennen lassen.
 - Exakte Signale durchsetzen.
@@ -651,6 +798,9 @@ Aufgaben:
 
 Abnahme:
 
+- Ein Mensch kann ohne Ziel oder Plan beginnen und wird schrittweise zu einem kleinen prüfbaren nächsten Zweck geführt.
+- Kein Ziel, Wissen oder Motiv wird ohne Beleg in IntentSpec übernommen.
+- Wiederholtes Nichtwissen erzeugt weder Druck noch einen erfundenen Plan.
 - Alle Signal- und Zustandsübergänge sind getestet.
 - Ohne zweites weiß wird keine Demo-Änderung ausgeführt.
 - Unklare Sprache wird niemals als Freigabe gewertet.
@@ -759,6 +909,21 @@ Aufgaben:
 
 Mindestens folgende Fälle müssen automatisiert geprüft werden:
 
+### Orientierung und individuelles Abholen
+
+- „Ich habe keinen Plan“ ist eine gültige Eingabe und kein Fehler.
+- Ein unbekanntes Ziel bleibt unbekannt, bis der Mensch es bestätigt.
+- Die KI übernimmt keine Vermutung als bekannten Fakt.
+- Jeder bekannte Fakt verweist auf eine menschliche Aussage oder freigegebene Beobachtung.
+- Rechtschreibung, Beruf, Alter oder kurze Antworten erzeugen keine Wissensannahme.
+- „Ich weiß es nicht“ wird akzeptiert und nicht als Zustimmung interpretiert.
+- Nach unsicher wird nur eine Frage gestellt.
+- Nach gar nichts wird ein Begriff erklärt oder eine Ebene zurückgegangen.
+- Bei wiederholtem Nichtverstehen wird die Darstellung gewechselt statt nur verlängert.
+- Ein sicherer Orientierungsschritt ist lesend, begrenzt und selbst Gegenstand eines weiß.
+- Der Mensch kann jederzeit pausieren oder abbrechen.
+- Wenn keine Verständigung gelingt, behauptet das System keinen Erfolg.
+
 ### Signal und Herkunft
 
 - weiß wird erkannt.
@@ -807,6 +972,9 @@ Mindestens folgende Fälle müssen automatisiert geprüft werden:
 
 ### Ende zu Ende
 
+- Kein Plan → Abholschleife → kleiner Orientierungszweck → weiß → lesender Plan.
+- Wiederholt „Ich weiß es nicht“ → andere Darstellung → keine erfundene Entscheidung.
+- Einzelnes Alltagswort → Spiegelung → eine Frage → prüfbarer Wunsch.
 - Wunsch → weiß → Plan → weiß → exakt eine erlaubte Änderung → Ergebnis.
 - Wunsch → unsicher → Antwort → neuer Spiegel → weiß.
 - Plan → gar nichts → Begriffserklärung → Plan bleibt unverändert.
@@ -821,6 +989,10 @@ Das MVP ist nur fertig, wenn alle Punkte wahr sind:
 - [ ] Lokales Fenster startet ohne API-Key.
 - [ ] Status nennt den echten Adapter.
 - [ ] Demo- und Manual-Adapter funktionieren.
+- [ ] Ein Mensch kann ohne Plan, Fachwort oder fertiges Ziel beginnen.
+- [ ] Die Abholschleife geht individuell zurück, ohne Wissen oder Absicht zu vermuten.
+- [ ] Bekannte Fakten, Unbekanntes und Hypothesen bleiben getrennt.
+- [ ] „Ich weiß es nicht“ ist ein funktionierender Pfad und keine Sackgasse.
 - [ ] Der Mensch kann unsicher mit freier Antwort fortsetzen.
 - [ ] gar nichts erklärt einen benannten Begriff.
 - [ ] Erstes weiß erlaubt nur Planen.
@@ -865,13 +1037,15 @@ Erwartete Lieferung:
 1. kurze Bestandsanalyse der vorhandenen Dateien,
 2. eigenständig startbares TypeScript-Projekt,
 3. reine Zustandsmaschine,
-4. korrigierter Klarstellungsfluss,
-5. exakte drei Signale,
-6. Demo- und Manual-Adapter ohne Netzwerk,
-7. minimales Fenster mit zwei klaren Gates,
-8. vollständige Unit-Tests für alle Übergänge,
-9. aktualisierte Startanleitung,
-10. Bericht über Abweichungen zwischen altem Code und diesem Plan.
+4. Orientierungsmodus mit individueller Abholschleife,
+5. belegte Trennung von bekannten Fakten, Unbekanntem und Hypothesen,
+6. korrigierter Klarstellungsfluss,
+7. exakte drei Signale,
+8. Demo- und Manual-Adapter ohne Netzwerk,
+9. minimales Fenster mit Orientierung und zwei klaren Gates,
+10. vollständige Unit-Tests für alle Übergänge,
+11. aktualisierte Startanleitung,
+12. Bericht über Abweichungen zwischen altem Code und diesem Plan.
 
 Noch nicht liefern:
 
