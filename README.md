@@ -28,9 +28,10 @@ Quellcode:
 
 ## Dokumentation
 
+- [Verbindliches Core Protocol](docs/CORE_PROTOCOL.md) — gemeinsamer Verständigungskreis und Produktverhalten
+- [Verbindlicher Bauplan für die weitere Umsetzung](docs/BUILD_PLAN.md) — Architektur, Etappen und Abnahme
 - [Idee](docs/IDEA.md)
 - [Brainstorm](docs/BRAINSTORM.md)
-- [Erster Bauplan für Etappe 1](docs/PLAN.md)
-- [Verbindlicher Bauplan für die weitere Umsetzung](docs/BUILD_PLAN.md)
+- [Erster historischer Bauplan für Etappe 1](docs/PLAN.md)
 
 Repo: https://github.com/landjunge/versteh-mir
