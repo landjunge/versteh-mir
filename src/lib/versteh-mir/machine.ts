@@ -1,4 +1,4 @@
-import { iso } from "./ids.ts";
+import { deterministicEngine } from "./engine.ts";
 import {
   classifyOpening,
   exploreIntentSummary,
@@ -11,7 +11,6 @@ import {
   orientReadOffer,
   relationQuestion,
 } from "./meaning.ts";
-import { deterministicEngine } from "./engine.ts";
 import {
   isExplainBare,
   isIDontKnow,
@@ -19,9 +18,21 @@ import {
   isStopPhrase,
   parseGarNichtsTerm,
   parseSignal,
-  SIGNAL_PROMPT,
   TERM_PROMPT,
 } from "./signals.ts";
+import {
+  addFact,
+  addFragment,
+  askWhich,
+  atom,
+  block,
+  createState,
+  dropPlan,
+  none,
+  originalText,
+  stop,
+  withAtom,
+} from "./state.ts";
 import type {
   ActionPlan,
   ApprovalGrant,
@@ -32,149 +43,14 @@ import type {
   IntentSpec,
   MeaningEdge,
   MeaningNode,
-  OriginalFragment,
   ReduceResult,
   SessionState,
-  SharedUnderstanding,
   Signal,
-  UnderstandingAtom,
 } from "./types.ts";
 
+export { createState } from "./state.ts";
+
 const GRANT_MS = 5 * 60 * 1000;
-
-function atom(
-  state: SessionState,
-  kind: UnderstandingAtom["kind"],
-  plainText: string,
-  requiresSignal: boolean,
-  sourceIds: string[] = [],
-): UnderstandingAtom {
-  return {
-    id: state.ids.id("atom"),
-    kind,
-    plainText,
-    sourceIds,
-    requiresSignal,
-  };
-}
-
-function emptyUnderstanding(sessionId: string): SharedUnderstanding {
-  return {
-    sessionId,
-    revision: 0,
-    originalFragments: [],
-    groundedFacts: [],
-    unknowns: [],
-    openQuestions: [],
-    nodes: [],
-    edges: [],
-    currentAtom: null,
-  };
-}
-
-export function createState(
-  ids: SessionState["ids"],
-  adapter: Pick<SessionState, "adapterId" | "adapterDisplayName" | "adapterConnected">,
-): SessionState {
-  const sessionId = ids.id("sess");
-  const welcome = "Sag, was du gerade sagen kannst. Ein Wunsch, ein Problem, ein Wort oder: Ich habe keinen Plan.";
-  const currentAtom = {
-    id: ids.id("atom"),
-    kind: "reflection" as const,
-    plainText: welcome,
-    sourceIds: [],
-    requiresSignal: false,
-  };
-  return {
-    sessionId,
-    ids,
-    adapterId: adapter.adapterId,
-    adapterDisplayName: adapter.adapterDisplayName,
-    adapterConnected: adapter.adapterConnected,
-    phase: "idle",
-    loop: { kind: "idle" },
-    awaiting: "none",
-    understanding: { ...emptyUnderstanding(sessionId), currentAtom },
-    intent: null,
-    plan: null,
-    planningGrant: null,
-    approvalGrant: null,
-    result: null,
-    currentAtom,
-    lastExplainedTerm: null,
-    representation: "plain",
-  };
-}
-
-function withAtom(state: SessionState, next: UnderstandingAtom, awaiting: SessionState["awaiting"]): SessionState {
-  return {
-    ...state,
-    currentAtom: next,
-    awaiting,
-    understanding: {
-      ...state.understanding,
-      currentAtom: next,
-    },
-  };
-}
-
-function addFragment(state: SessionState, text: string): { state: SessionState; fragment: OriginalFragment } {
-  const fragment: OriginalFragment = {
-    id: state.ids.id("frag"),
-    text,
-    createdAt: iso(state.ids.now()),
-  };
-  return {
-    fragment,
-    state: {
-      ...state,
-      understanding: {
-        ...state.understanding,
-        originalFragments: [...state.understanding.originalFragments, fragment],
-        revision: state.understanding.revision + 1,
-      },
-    },
-  };
-}
-
-function addFact(state: SessionState, value: string, fragmentId: string): SessionState {
-  return {
-    ...state,
-    understanding: {
-      ...state.understanding,
-      groundedFacts: [
-        ...state.understanding.groundedFacts,
-        {
-          id: state.ids.id("fact"),
-          value,
-          source: "human_statement",
-          evidenceFragmentIds: [fragmentId],
-        },
-      ],
-    },
-  };
-}
-
-function originalText(state: SessionState): string {
-  return state.understanding.originalFragments[0]?.text ?? "";
-}
-
-function none(state: SessionState): ReduceResult {
-  return { state, effect: { type: "none" } };
-}
-
-function askWhich(state: SessionState): ReduceResult {
-  return none(withAtom(state, atom(state, "question", SIGNAL_PROMPT, false), "signal"));
-}
-
-function dropPlan(state: SessionState): SessionState {
-  return {
-    ...state,
-    plan: null,
-    approvalGrant: null,
-    planningGrant: null,
-  };
-}
 
 export function reduce(state: SessionState, event: Event): ReduceResult {
   if (event.type === "stop") return stop(state);
@@ -188,34 +64,6 @@ export function reduce(state: SessionState, event: Event): ReduceResult {
   }
   if (event.type === "human_input") return handleHuman(state, event.text, event.channel);
   return none(state);
-}
-
-function stop(state: SessionState): ReduceResult {
-  const next = withAtom(
-    {
-      ...dropPlan(state),
-      phase: "blocked",
-      loop: { kind: "blocked", message: "Angehalten." },
-      intent: null,
-      result: null,
-    },
-    atom(state, "result", "Angehalten. Nichts weiter. Du kannst von vorn beginnen.", false),
-    "none",
-  );
-  return none(next);
-}
-
-function block(state: SessionState, message: string): ReduceResult {
-  const next = withAtom(
-    {
-      ...dropPlan(state),
-      phase: "blocked",
-      loop: { kind: "blocked", message },
-    },
-    atom(state, "result", message, false),
-    "none",
-  );
-  return none(next);
 }
 
 function handleHuman(state: SessionState, raw: string, channel: Channel): ReduceResult {
@@ -573,9 +421,6 @@ function confirmWeiss(state: SessionState): ReduceResult {
     const edges = state.understanding.edges.map((edge, index) =>
       index === 0 ? { ...edge, status: "confirmed" as const, source: "human_confirmation" as const } : edge,
     );
-    if (extraNouns[0] && !relation) {
-      /* keep going */
-    }
     const summary = exploreIntentSummary(from, to, relation);
     const intent: IntentSpec = {
       id: state.ids.id("intent"),
@@ -682,19 +527,12 @@ function acceptPlan(state: SessionState, plan: ActionPlan): ReduceResult {
   if (plan.intentId !== state.intent.id) {
     return block(state, "Der Plan gehört nicht zu diesem Wunsch.");
   }
-  const readsOnly = plan.operations.every((op) => op.risk === "read");
   const next: SessionState = {
     ...state,
     plan,
-    phase: readsOnly ? "review_plan" : "review_plan",
+    phase: "review_plan",
     loop: { kind: "review_plan", opIndex: 0 },
   };
-  if (readsOnly) {
-    return {
-      state: withAtom(next, atom(next, "plan_effect", deterministicEngine.explainPlan(plan), true), "signal"),
-      effect: { type: "none" },
-    };
-  }
   return none(withAtom(next, atom(next, "plan_effect", deterministicEngine.explainPlan(plan), true), "signal"));
 }
 

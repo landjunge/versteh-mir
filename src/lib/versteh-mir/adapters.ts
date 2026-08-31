@@ -1,5 +1,5 @@
 import { withPlanHash } from "./hash.ts";
-import { planEffectText, readOrientationResult } from "./meaning.ts";
+import { readOrientationResult } from "./meaning.ts";
 import type { ActionPlan, IntentSpec } from "./types.ts";
 
 export type AgentAdapter = {
@@ -126,9 +126,3 @@ export const grokBuildAdapter: AgentAdapter = {
     throw new Error("Nicht verbunden.");
   },
 };
-
-export function effectAtomText(plan: ActionPlan): string {
-  return planEffectText(plan.operations);
-}
-
-export { planEffectText };

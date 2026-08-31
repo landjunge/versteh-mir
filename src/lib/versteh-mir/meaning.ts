@@ -201,19 +201,3 @@ export function explainTermAsExample(term: string): string {
 export function readOrientationResult(): string {
   return "Im Testbereich steht noch kein nächster Schritt fest. Eine mögliche Richtung: zuerst nur den Projektsatz in der README klären. Sonst wurde nichts verändert.";
 }
-
-export function planEffectText(ops: { effect: string; risk: string }[]): string {
-  if (ops.length === 0) {
-    return "Es würde nichts gelesen, nichts verändert, nichts gelöscht und nichts gesendet. Stimmt das?";
-  }
-  const change = ops.filter((o) => o.risk === "local_change" || o.risk === "destructive");
-  const send = ops.filter((o) => o.risk === "external_send");
-  const read = ops.filter((o) => o.risk === "read");
-  const parts: string[] = [];
-  if (change.length) parts.push(change.map((o) => o.effect).join(" "));
-  else parts.push("Keine Datei würde verändert oder gelöscht.");
-  if (read.length && !change.length) parts.push(read.map((o) => o.effect).join(" "));
-  if (send.length) parts.push(send.map((o) => o.effect).join(" "));
-  else parts.push("Nichts würde ins Internet gesendet.");
-  return `${parts.join(" ")} Stimmt das?`;
-}
