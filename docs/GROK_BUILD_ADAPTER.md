@@ -32,7 +32,27 @@ Der Adapter `grok-build` bleibt:
 
 `probe().connected === false` ist der nachweisbare Status.
 
-## Was stattdessen geht
+## CLI auf dem Mac
+
+Versteh-Mir im Terminal (dieser Rechner, Node 22):
+
+```
+npm install
+npm run cli
+npm run cli -- --adapter manual
+```
+
+Grok Build CLI ist ein **anderes** Programm. Offizielle Installation:
+
+```
+curl -fsSL https://x.ai/cli/install.sh | bash
+grok
+```
+
+Wenn `grok` da ist, bleibt Versteh-Mir trotzdem **Nicht verbunden**. Es startet `grok` nicht. Ein `grok -p` nach Gate 1 würde lokal schreiben können, ohne den Capability Broker.
+
+Der ehrliche Weg auf dem Mac: Versteh-Mir mit `--adapter manual`, nach dem ersten **weiß** den Wunsch kopieren, in `grok` einfügen.
+
 
 1. **Demo** — verbunden, nur Testbereich, zwei Gates, Capability Broker.
 2. **Manual** — nicht verbunden. Nach Gate 1 zeigt Versteh-Mir den Wunsch zum Kopieren. Der Mensch gibt ihn selbst an Grok Build weiter. Rückweg: eingefügter Plan, erneut weiß, dann Broker.

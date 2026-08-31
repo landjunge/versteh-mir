@@ -31,3 +31,15 @@ Versteh-Mir ist eine Verständigungs- und Einwilligungsschicht zwischen Mensch u
 - [Grok-Build-Adapter](docs/GROK_BUILD_ADAPTER.md)
 
 Repo: https://github.com/landjunge/versteh-mir
+
+## Terminal auf dem Mac
+
+Node 22, im geklonten Ordner:
+
+```
+npm install
+npm run cli
+```
+
+Grok Build (`curl -fsSL https://x.ai/cli/install.sh | bash`) ist getrennt. Versteh-Mir führt es nicht aus.
+
