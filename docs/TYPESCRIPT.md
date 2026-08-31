@@ -12,7 +12,7 @@ String-Unions und discriminated Unions statt Booleans und magischer Strings.
 - `Event`, `Effect`, `Loop` tragen ein `type`/`kind`. Neue Zweige müssen in `reduce` behandelt werden.
 - `PlanningGrant.readOnly` und `ApprovalGrant.singleUse` sind Literal `true`, damit ein schreibendes Grant kein gültiger Typ ist.
 
-Nicht zwei Felder dieselbe Geschichte erzählen lassen, wenn eines reicht. `phase` und `loop.kind` sind eine bekannte Doppelung — neue Zustände nur gemeinsam ändern.
+`phase` folgt aus `loop` über `phaseOf`. Neue Zustände nur über `move(state, loop)` setzen.
 
 ## 2. An der Grenze prüfen, innen vertrauen
 

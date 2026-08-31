@@ -1,7 +1,9 @@
 import { iso } from "./ids.ts";
 import { SIGNAL_PROMPT } from "./signals.ts";
 import type {
+  Loop,
   OriginalFragment,
+  Phase,
   ReduceResult,
   SessionState,
   SharedUnderstanding,
@@ -38,6 +40,51 @@ function emptyUnderstanding(sessionId: string): SharedUnderstanding {
   };
 }
 
+export function phaseOf(loop: Loop): Phase {
+  switch (loop.kind) {
+    case "idle":
+      return "idle";
+    case "orient":
+    case "explore":
+    case "follow":
+    case "clarify_intent":
+    case "clarify_plan":
+      return "understanding";
+    case "review_intent":
+      return "review_intent";
+    case "planning":
+      return "planning";
+    case "review_plan":
+      return "review_plan";
+    case "executing":
+      return "executing";
+    case "result":
+      return "result";
+    case "blocked":
+      return "blocked";
+  }
+}
+
+export function move(
+  state: SessionState,
+  loop: Loop,
+  patch: Partial<
+    Pick<
+      SessionState,
+      | "intent"
+      | "plan"
+      | "planningGrant"
+      | "approvalGrant"
+      | "result"
+      | "understanding"
+      | "representation"
+      | "lastExplainedTerm"
+    >
+  > = {},
+): SessionState {
+  return { ...state, ...patch, loop, phase: phaseOf(loop) };
+}
+
 export function createState(
   ids: SessionState["ids"],
   adapter: Pick<SessionState, "adapterId" | "adapterDisplayName" | "adapterConnected">,
@@ -45,32 +92,35 @@ export function createState(
   const sessionId = ids.id("sess");
   const welcome =
     "Sag, was du gerade sagen kannst. Ein Wunsch, ein Problem, ein Wort oder: Ich habe keinen Plan.";
-  const currentAtom = {
+  const currentAtom: UnderstandingAtom = {
     id: ids.id("atom"),
-    kind: "reflection" as const,
+    kind: "reflection",
     plainText: welcome,
     sourceIds: [],
     requiresSignal: false,
   };
-  return {
-    sessionId,
-    ids,
-    adapterId: adapter.adapterId,
-    adapterDisplayName: adapter.adapterDisplayName,
-    adapterConnected: adapter.adapterConnected,
-    phase: "idle",
-    loop: { kind: "idle" },
-    awaiting: "none",
-    understanding: { ...emptyUnderstanding(sessionId), currentAtom },
-    intent: null,
-    plan: null,
-    planningGrant: null,
-    approvalGrant: null,
-    result: null,
-    currentAtom,
-    lastExplainedTerm: null,
-    representation: "plain",
-  };
+  return move(
+    {
+      sessionId,
+      ids,
+      adapterId: adapter.adapterId,
+      adapterDisplayName: adapter.adapterDisplayName,
+      adapterConnected: adapter.adapterConnected,
+      phase: "idle",
+      loop: { kind: "idle" },
+      awaiting: "none",
+      understanding: { ...emptyUnderstanding(sessionId), currentAtom },
+      intent: null,
+      plan: null,
+      planningGrant: null,
+      approvalGrant: null,
+      result: null,
+      currentAtom,
+      lastExplainedTerm: null,
+      representation: "plain",
+    },
+    { kind: "idle" },
+  );
 }
 
 export function withAtom(
@@ -148,29 +198,24 @@ export function dropPlan(state: SessionState): SessionState {
 }
 
 export function stop(state: SessionState): ReduceResult {
-  const next = withAtom(
-    {
-      ...dropPlan(state),
-      phase: "blocked",
-      loop: { kind: "blocked", message: "Angehalten." },
-      intent: null,
-      result: null,
-    },
-    atom(state, "result", "Angehalten. Nichts weiter. Du kannst von vorn beginnen.", false),
-    "none",
+  return none(
+    withAtom(
+      move(
+        { ...dropPlan(state), intent: null, result: null },
+        { kind: "blocked", message: "Angehalten." },
+      ),
+      atom(state, "result", "Angehalten. Nichts weiter. Du kannst von vorn beginnen.", false),
+      "none",
+    ),
   );
-  return none(next);
 }
 
 export function block(state: SessionState, message: string): ReduceResult {
-  const next = withAtom(
-    {
-      ...dropPlan(state),
-      phase: "blocked",
-      loop: { kind: "blocked", message },
-    },
-    atom(state, "result", message, false),
-    "none",
+  return none(
+    withAtom(
+      move(dropPlan(state), { kind: "blocked", message }),
+      atom(state, "result", message, false),
+      "none",
+    ),
   );
-  return none(next);
 }

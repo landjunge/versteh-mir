@@ -7,6 +7,7 @@ import { INITIAL_FILES } from "./broker.ts";
 import { testIds } from "./ids.ts";
 import { classifyOpening } from "./meaning.ts";
 import { createSession } from "./session.ts";
+import { phaseOf } from "./state.ts";
 import type { Signal } from "./types.ts";
 
 type Step = {
@@ -33,6 +34,7 @@ function play(fixture: Fixture) {
     if (step.say) session.submit(step.say);
     if (step.signal) session.signal(step.signal);
     const snap = session.snapshot();
+    assert.equal(snap.phase, phaseOf(snap.loop), `${fixture.id} phase folgt loop`);
     if (step.expectPhase) {
       assert.equal(snap.phase, step.expectPhase, `${fixture.id} phase after ${step.say ?? step.signal}`);
     }
