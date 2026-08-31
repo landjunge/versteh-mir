@@ -53,6 +53,9 @@ Wenn `grok` da ist, bleibt Versteh-Mir trotzdem **Nicht verbunden**. Es startet 
 
 Der ehrliche Weg auf dem Mac: Versteh-Mir mit `--adapter manual`, nach dem ersten **weiß** den Wunsch kopieren, in `grok` einfügen.
 
+Zsh: `source zsh/versteh-mir.plugin.zsh` — Funktion `versteh-mir`, kein Alias auf `grok`.
+
+
 
 1. **Demo** — verbunden, nur Testbereich, zwei Gates, Capability Broker.
 2. **Manual** — nicht verbunden. Nach Gate 1 zeigt Versteh-Mir den Wunsch zum Kopieren. Der Mensch gibt ihn selbst an Grok Build weiter. Rückweg: eingefügter Plan, erneut weiß, dann Broker.

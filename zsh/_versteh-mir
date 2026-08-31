@@ -1,0 +1,5 @@
+#compdef versteh-mir
+
+_arguments -s \
+  '(-h --help)'{-h,--help}'[Hilfe]' \
+  '--adapter[Adapter]:adapter:(demo manual grok-build)'

@@ -43,3 +43,22 @@ npm run cli
 
 Grok Build (`curl -fsSL https://x.ai/cli/install.sh | bash`) ist getrennt. Versteh-Mir führt es nicht aus.
 
+## Zsh-Plugin
+
+Im geklonten Ordner, in `~/.zshrc`:
+
+```
+source /pfad/zu/versteh-mir/zsh/versteh-mir.plugin.zsh
+```
+
+Oder Oh My Zsh:
+
+```
+ln -s /pfad/zu/versteh-mir/zsh ~/.oh-my-zsh/custom/plugins/versteh-mir
+```
+
+und `versteh-mir` in `plugins=(...)` eintragen.
+
+Danach: `versteh-mir`, `versteh-mir --adapter manual`, Tab ergänzt die Adapter. `grok` bleibt unangetastet.
+
+
