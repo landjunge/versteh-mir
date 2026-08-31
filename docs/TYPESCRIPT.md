@@ -58,3 +58,19 @@ Keine zweite Orientierungs-Maschine neben `machine.ts`. Keine Ordner auf Vorrat.
 IDs bleiben `string`. Keine Brand-Types, solange sie keine Verwechslung verhindern, die Tests nicht schon fangen.
 
 Funktionen klein halten. Eine Funktion entscheidet oder führt aus, nicht beides — außer `applyEffect`, das absichtlich die Grenze zur Ausführung ist.
+
+## 7. Ein Reducer, kein Redux
+
+Der Sitzungsstand folgt demselben Muster wie Redux, ohne die Bibliothek:
+
+- ein Zustand: `SessionState`
+- Ereignisse statt Setter: `Event`
+- reine Übergänge: `reduce(state, event) → { state, effect }`
+- Wirkungen am Rand: `applyEffect` ruft Adapter und Broker
+- die Oberfläche hält nur eine `View`
+
+Redux, Zustand, Recoil oder ein zweiter Store dürfen diesen Kern nicht ersetzen. Sonst gäbe es zwei Wahrheiten: die Protokoll-Maschine und ein UI-Store.
+
+Was in der Oberfläche bleiben darf: Tastatureingabe, Mikrofon, Vorlesen. Das ist kein Sitzungsstand.
+
+Neue Felder am Protokoll gehören in `types.ts` und `reduce`, nicht in `useState`.
