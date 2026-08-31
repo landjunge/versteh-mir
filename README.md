@@ -16,6 +16,7 @@ Versteh-Mir ist eine Verständigungs- und Einwilligungsschicht zwischen Mensch u
 
 - Vier Ausgangslagen in derselben Fläche: klarer Wunsch, kein Plan, ungewöhnliche Verbindung, „gar nichts“
 - Demo-Adapter mit Test-Dateien, ohne API-Schlüssel
+- Grok Build: **Nicht verbunden** — keine vorgetäuschte Sitzung
 - Zwei Gates: Bedeutung, dann Handlung
 - Capability Broker: ohne ausgestellte Freigabe, mit altem Hash, nach Ablauf oder beim zweiten Versuch wird nichts geschrieben
 - Planwirkung aus den Operationen: Löschen, Senden, Geheimnisse und Kosten können in der Erklärung nicht verschwinden
@@ -27,5 +28,6 @@ Versteh-Mir ist eine Verständigungs- und Einwilligungsschicht zwischen Mensch u
 - [Sicherheitsmodell](docs/SECURITY_MODEL.md)
 - [Abweichungen](docs/DEVIATIONS.md)
 - [TypeScript](docs/TYPESCRIPT.md)
+- [Grok-Build-Adapter](docs/GROK_BUILD_ADAPTER.md)
 
 Repo: https://github.com/landjunge/versteh-mir

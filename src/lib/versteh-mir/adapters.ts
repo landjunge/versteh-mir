@@ -118,7 +118,7 @@ export const grokBuildAdapter: AgentAdapter = {
       reason: "Keine unterstützte lokale Schnittstelle. Verbindung wird nicht vorgetäuscht.",
     };
   },
-  createPlan() {
+  createPlan(_intent, _ids) {
     throw new Error("Nicht verbunden.");
   },
 };
