@@ -17,12 +17,13 @@ Versteh-Mir ist eine Verständigungs- und Einwilligungsschicht zwischen Mensch u
 - Vier Ausgangslagen in derselben Fläche: klarer Wunsch, kein Plan, ungewöhnliche Verbindung, „gar nichts“
 - Demo-Adapter mit Test-Dateien, ohne API-Schlüssel
 - Zwei Gates: Bedeutung, dann Handlung
-- Ohne zweites weiß wird keine Datei geändert
+- Capability Broker: ohne ausgestellte Freigabe, mit altem Hash, nach Ablauf oder beim zweiten Versuch wird nichts geschrieben
 
 ## Dokumentation
 
 - [Core Protocol](docs/CORE_PROTOCOL.md)
 - [Bauplan](docs/BUILD_PLAN.md)
+- [Sicherheitsmodell](docs/SECURITY_MODEL.md)
 - [Abweichungen](docs/DEVIATIONS.md)
 
 Repo: https://github.com/landjunge/versteh-mir

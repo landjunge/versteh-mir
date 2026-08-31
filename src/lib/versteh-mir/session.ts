@@ -1,5 +1,5 @@
 import { demoAdapter, grokBuildAdapter, manualAdapter, type AgentAdapter } from "./adapters.ts";
-import { INITIAL_FILES, MemoryBroker } from "./broker.ts";
+import { MemoryBroker } from "./broker.ts";
 import { liveIds } from "./ids.ts";
 import { applyEffect, createState, reduce } from "./machine.ts";
 import type {
@@ -92,13 +92,16 @@ export function createSession(opts?: {
   };
   const broker = new MemoryBroker();
   let state = createState(ids, adapterMeta);
+  broker.bindSession(state.sessionId);
 
   function run(event: Event): View {
     const reduced = reduce(state, event);
     state = applyEffect(reduced.state, reduced.effect, {
       createPlan: (intent) => adapter.createPlan(intent, ids),
-      execute: (plan, grant) =>
-        broker.execute(plan, grant, reduced.state.sessionId, ids.now()),
+      execute: (plan, grant) => {
+        broker.issue(grant);
+        return broker.execute(plan, grant, reduced.state.sessionId, ids.now());
+      },
       read: (plan) => {
         const grant = reduced.state.planningGrant;
         if (!grant) {
@@ -130,9 +133,9 @@ export function createSession(opts?: {
       run({ type: "human_signal", signal, channel, namedTerm }),
     stop: () => run({ type: "stop" }),
     reset: () => {
-      broker.files = { ...INITIAL_FILES };
-      broker.usedNonces.clear();
+      broker.reset();
       state = createState(ids, adapterMeta);
+      broker.bindSession(state.sessionId);
       return toView(state, broker.snapshot());
     },
   };
