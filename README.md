@@ -2,36 +2,27 @@
 
 > Nicht besser prompten. Erst dasselbe meinen.
 
-Versteh-Mir ist eine lokale Verständigungs- und Einwilligungsschicht zwischen Mensch und KI-Agent. Sie zeigt dem Menschen in seiner Sprache, was die KI verstanden hat und was sie als Nächstes tun will. Erst nach einer eindeutigen Freigabe darf der bestätigte Schritt stattfinden.
+Versteh-Mir ist eine Verständigungs- und Einwilligungsschicht zwischen Mensch und KI. Sie zeigt in Alltagssprache, was verstanden wurde und was als Nächstes passieren würde. Erst nach **weiß** darf geplant werden. Erst nach einem zweiten **weiß** darf der unveränderte Plan einmalig ausgeführt werden.
 
-Ein fertiger Plan ist keine Voraussetzung. Wenn ein Mensch noch nicht weiß, was er braucht oder wo er anfangen soll, geht Versteh-Mir individuell zurück, trennt Bekanntes von Unbekanntem und sucht mit ihm jeweils nur den nächsten verständlichen Schritt. Wissen, Ziel und Sprachebene werden nicht vermutet.
+`ja`, `okay` und `weiter` zählen nicht.
 
-Auch ungewöhnliche oder zunächst widersprüchliche Denkwege werden nicht vorschnell geglättet. Versteh-Mir bewahrt die Originalgedanken, fragt nach ihren Verbindungen und übernimmt nur vom Menschen bestätigte Beziehungen in einen späteren Plan.
+## Drei Signale
 
-Sprache oder Tastatur. Drei Signale: **weiß**, **unsicher**, **gar nichts**.
+- **weiß** — genau das gezeigte Stück stimmt; nur der benannte nächste Schritt
+- **unsicher** — eine Frage zu diesem Punkt, nichts wird getan
+- **gar nichts** — ein benanntes Wort erklären oder eine Ebene zurück
 
-Zwei Richtungen:
+## Was dieser Stand kann
 
-- **Mensch → KI** — ein Wunsch wird zu einer Bedeutung, die der Mensch prüfen kann.
-- **KI → Mensch** — ein Agentenplan wird mit seinen tatsächlichen Folgen verständlich erklärt.
-
-Das Ziel sind zwei getrennte Gates: Das erste **weiß** bestätigt die Bedeutung und erlaubt nur das Planen. Das zweite **weiß** gibt genau den unveränderten, sichtbaren Plan einmalig frei.
-
-## Aktueller Stand
-
-Das Repository enthält einen frühen TypeScript-/React-Prototyp. Der Signal-Kreis und erste Tests sind vorhanden; ein technisch erzwungenes Handlungstor und eine echte Grok-Build-Anbindung sind noch nicht fertig.
-
-Quellcode:
-
-- src/lib/versteh-mir/ — bisheriger Kern, Signale und Tests
-- src/components/versteh-mir/window.tsx — das kleine Fenster
+- Vier Ausgangslagen in derselben Fläche: klarer Wunsch, kein Plan, ungewöhnliche Verbindung, „gar nichts“
+- Demo-Adapter mit Test-Dateien, ohne API-Schlüssel
+- Zwei Gates: Bedeutung, dann Handlung
+- Ohne zweites weiß wird keine Datei geändert
 
 ## Dokumentation
 
-- [Verbindliches Core Protocol](docs/CORE_PROTOCOL.md) — gemeinsamer Verständigungskreis und Produktverhalten
-- [Verbindlicher Bauplan für die weitere Umsetzung](docs/BUILD_PLAN.md) — Architektur, Etappen und Abnahme
-- [Idee](docs/IDEA.md)
-- [Brainstorm](docs/BRAINSTORM.md)
-- [Erster historischer Bauplan für Etappe 1](docs/PLAN.md)
+- [Core Protocol](docs/CORE_PROTOCOL.md)
+- [Bauplan](docs/BUILD_PLAN.md)
+- [Abweichungen](docs/DEVIATIONS.md)
 
 Repo: https://github.com/landjunge/versteh-mir

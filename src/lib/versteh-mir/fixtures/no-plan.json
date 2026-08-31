@@ -1,0 +1,34 @@
+{
+  "id": "no-plan",
+  "opening": "Ich weiß nicht mehr, was bei meinem Projekt als Nächstes wichtig ist.",
+  "forbiddenAssumptions": ["invented plan", "write"],
+  "steps": [
+    {
+      "say": "Ich weiß nicht mehr, was bei meinem Projekt als Nächstes wichtig ist.",
+      "expectPhase": "understanding",
+      "expectAtom": "nicht einfach blind",
+      "expectAwaiting": "signal"
+    },
+    {
+      "signal": "weiss",
+      "expectPhase": "understanding",
+      "expectAwaiting": "free_answer"
+    },
+    {
+      "say": "Ich weiß es nicht.",
+      "expectPhase": "understanding",
+      "expectAtom": "aktuellen Stand"
+    },
+    {
+      "signal": "weiss",
+      "expectPhase": "review_intent",
+      "expectAtom": "nur den freigegebenen Bereich lesen"
+    },
+    {
+      "signal": "weiss",
+      "expectPhase": "result",
+      "unchangedFile": "README.md",
+      "expectAtom": "nichts verändert"
+    }
+  ]
+}

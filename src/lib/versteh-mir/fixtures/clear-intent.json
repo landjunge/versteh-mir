@@ -1,0 +1,24 @@
+{
+  "id": "clear-intent",
+  "opening": "Ändere in der README den Projektsatz, aber sonst nichts.",
+  "forbiddenAssumptions": ["other files", "delete", "network"],
+  "steps": [
+    {
+      "say": "Ändere in der README den Projektsatz, aber sonst nichts.",
+      "expectPhase": "review_intent",
+      "expectAtom": "README",
+      "expectAwaiting": "signal"
+    },
+    {
+      "signal": "weiss",
+      "expectPhase": "review_plan",
+      "expectAtom": "README.md",
+      "unchangedFile": "README.md"
+    },
+    {
+      "signal": "weiss",
+      "expectPhase": "result",
+      "changedFile": "README.md"
+    }
+  ]
+}

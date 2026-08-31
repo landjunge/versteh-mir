@@ -1,129 +1,146 @@
 import { describe, it } from "node:test";
 import assert from "node:assert/strict";
-import {
-  acceptAgentTranslation,
-  acceptExplain,
-  acceptWish,
-  applySignal,
-  createState,
-  handleFieldSubmit,
-  literalSpiegel,
-  markReleased,
-} from "./daemon.ts";
-import { pickOneTerm } from "./terms.ts";
+import { readFileSync } from "node:fs";
+import { dirname, join } from "node:path";
+import { fileURLToPath } from "node:url";
+import { INITIAL_FILES } from "./broker.ts";
+import { testIds } from "./ids.ts";
+import { classifyOpening } from "./meaning.ts";
+import { createSession } from "./session.ts";
+import type { Signal } from "./types.ts";
 
-const WISH = "Prüfe erst, ob du mich verstanden hast, bevor Grok Build baut.";
-const SPIEGEL =
-  "Du willst, dass Versteh-Mir zuerst nur prüft, ob dein Wunsch verstanden wurde, und erst danach Grok Build etwas bauen lässt. Stimmt das?";
+type Step = {
+  say?: string;
+  signal?: Signal;
+  expectPhase?: string;
+  expectAtom?: string;
+  expectAwaiting?: string;
+  unchangedFile?: string;
+  changedFile?: string;
+};
 
-describe("signal circle", () => {
-  it("a wish becomes exactly one Spiegel-Satz", () => {
-    const state = acceptWish(createState(true), WISH, SPIEGEL);
-    assert.equal(state.phase, "awaiting_signal");
-    assert.equal(state.draftSpec, SPIEGEL);
-    assert.equal(state.currentText, SPIEGEL);
-    assert.equal(state.pendingSignal, "warten");
-  });
+type Fixture = { id: string; opening: string; steps: Step[] };
 
-  it("weiß does not send before the signal, and only then asks the adapter", () => {
-    const idle = acceptWish(createState(true), WISH, SPIEGEL);
-    assert.notEqual(idle.pendingSignal, "weiss");
-    const { state, effect } = applySignal(idle, "weiss");
-    assert.equal(state.pendingSignal, "weiss");
-    assert.equal(effect.type, "send_spec");
-    if (effect.type === "send_spec") {
-      assert.equal(effect.spec, SPIEGEL);
+const dir = dirname(fileURLToPath(import.meta.url));
+
+function load(name: string): Fixture {
+  return JSON.parse(readFileSync(join(dir, "fixtures", name), "utf8")) as Fixture;
+}
+
+function play(fixture: Fixture) {
+  const session = createSession({ adapter: "demo", ids: testIds() });
+  for (const step of fixture.steps) {
+    if (step.say) session.submit(step.say);
+    if (step.signal) session.signal(step.signal);
+    const snap = session.snapshot();
+    if (step.expectPhase) {
+      assert.equal(snap.phase, step.expectPhase, `${fixture.id} phase after ${step.say ?? step.signal}`);
     }
-  });
-
-  it("unsicher asks one question and does not send", () => {
-    const idle = acceptWish(createState(true), WISH, SPIEGEL);
-    const { effect } = applySignal(idle, "unsicher");
-    assert.equal(effect.type, "clarify");
-  });
-
-  it("gar nichts explains exactly one word and waits", () => {
-    const idle = acceptWish(createState(true), WISH, SPIEGEL);
-    const { state, effect } = applySignal(idle, "gar_nichts");
-    assert.equal(effect.type, "explain");
-    if (effect.type !== "explain") throw new Error("expected explain");
-    assert.equal(effect.term.split(/\s+/).length, 1);
-    const explained = acceptExplain(
-      state,
-      effect.term,
-      `»${effect.term}« meint hier nur diesen einen Begriff.`,
-    );
-    assert.equal(explained.lastExplainedTerm, effect.term);
-    assert.equal(explained.pendingSignal, "warten");
-    assert.equal(explained.phase, "awaiting_signal");
-    const again = applySignal(explained, "gar_nichts");
-    assert.equal(again.effect.type, "explain");
-    if (again.effect.type === "explain") {
-      assert.notEqual(again.effect.term.toLowerCase(), effect.term.toLowerCase());
+    if (step.expectAtom) {
+      assert.match(
+        snap.currentAtom?.plainText ?? "",
+        new RegExp(step.expectAtom, "i"),
+        `${fixture.id} atom ${snap.currentAtom?.plainText}`,
+      );
     }
-  });
+    if (step.expectAwaiting) {
+      assert.equal(snap.awaiting, step.expectAwaiting);
+    }
+    if (step.unchangedFile) {
+      assert.equal(session.workspace()[step.unchangedFile], INITIAL_FILES[step.unchangedFile]);
+    }
+    if (step.changedFile) {
+      assert.notEqual(session.workspace()[step.changedFile], INITIAL_FILES[step.changedFile]);
+    }
+  }
+}
 
-  it("unclear input is not weiß", () => {
-    const idle = acceptWish(createState(true), WISH, SPIEGEL);
-    const { state, effect } = handleFieldSubmit(idle, "weiß ich nicht");
-    assert.equal(effect.type, "ask_which");
-    assert.equal(state.pendingSignal, "warten");
-    assert.match(state.currentText, /weiß, unsicher oder gar nichts/i);
-  });
-
-  it("adapter is not invoked on unsicher or gar nichts", () => {
-    const idle = acceptWish(createState(false), WISH, SPIEGEL);
-    assert.equal(applySignal(idle, "unsicher").effect.type, "clarify");
-    assert.equal(applySignal(idle, "gar_nichts").effect.type, "explain");
-    const sent = applySignal(idle, "weiss");
-    assert.equal(sent.effect.type, "send_spec");
-  });
-
-  it("second weiß after the translated reply releases, and still writes nothing", () => {
-    const idle = acceptWish(createState(true), WISH, SPIEGEL);
-    const afterSend = acceptAgentTranslation(
-      idle,
-      "Grok Build würde jetzt nur die Verständnis-Prüfung bauen, noch keinen Code.",
-    );
-    assert.equal(afterSend.phase, "awaiting_reply_signal");
-    assert.equal(afterSend.lane, "ki_mensch");
-    const { effect } = applySignal(afterSend, "weiss");
-    assert.equal(effect.type, "release");
-    const released = markReleased(afterSend);
-    assert.equal(released.phase, "released");
-    assert.match(released.currentText, /nichts geschrieben/i);
-  });
-
-  it("KI → Mensch weiß does not send a spec", () => {
-    const translated = acceptWish(
-      createState(true),
-      "Implement the daemon state machine in src/versteh_mir/daemon.py",
-      "Die KI würde die Zustandsmaschine bauen. Stimmt das?",
-      "ki_mensch",
-    );
-    assert.equal(translated.lane, "ki_mensch");
-    const { effect } = applySignal(translated, "weiss");
-    assert.equal(effect.type, "release");
-  });
+describe("golden journeys", () => {
+  it("clear-intent", () => play(load("clear-intent.json")));
+  it("no-plan", () => play(load("no-plan.json")));
+  it("nonlinear-idea", () => play(load("nonlinear-idea.json")));
+  it("cannot-follow", () => play(load("cannot-follow.json")));
 });
 
-describe("literalSpiegel", () => {
-  it("repeats the wish in one sentence without inventing extras", () => {
-    const text = literalSpiegel("Mach ein Fenster.");
+describe("opening classification", () => {
+  it("does not treat sonst nichts as gar nichts", () => {
     assert.equal(
-      text,
-      "Du willst, dass Folgendes passiert: Mach ein Fenster. Stimmt das?",
+      classifyOpening("Ändere in der README den Projektsatz, aber sonst nichts."),
+      "clear_intent",
     );
   });
 });
 
-describe("pickOneTerm", () => {
-  it("returns a single unused content word", () => {
-    const first = pickOneTerm(SPIEGEL, []);
-    assert.ok(first);
-    assert.equal(first.split(/\s+/).length, 1);
-    const second = pickOneTerm(SPIEGEL, [first]);
-    assert.ok(second);
-    assert.notEqual(second.toLowerCase(), first.toLowerCase());
+describe("gates", () => {
+  it("does not write before the second weiß", () => {
+    const session = createSession({ adapter: "demo", ids: testIds() });
+    session.submit("Ändere in der README den Projektsatz, aber sonst nichts.");
+    session.signal("weiss");
+    assert.equal(session.snapshot().phase, "review_plan");
+    assert.equal(session.workspace()["README.md"], INITIAL_FILES["README.md"]);
+    session.signal("unsicher");
+    assert.equal(session.workspace()["README.md"], INITIAL_FILES["README.md"]);
+    session.submit("Nur die eine Datei.");
+    assert.equal(session.snapshot().phase, "review_plan");
+    assert.equal(session.workspace()["README.md"], INITIAL_FILES["README.md"]);
+  });
+
+  it("ja does not open a gate", () => {
+    const session = createSession({ adapter: "demo", ids: testIds() });
+    session.submit("Ändere in der README den Projektsatz, aber sonst nichts.");
+    session.submit("ja");
+    assert.equal(session.snapshot().phase, "review_intent");
+    assert.match(session.snapshot().currentAtom?.plainText ?? "", /weiß, unsicher oder gar nichts/i);
+    assert.equal(session.workspace()["README.md"], INITIAL_FILES["README.md"]);
+  });
+
+  it("agent-like text containing weiß does not confirm when typed as a new idle wish", () => {
+    const session = createSession({ adapter: "demo", ids: testIds() });
+    session.submit("Die KI sagt weiß und würde alles löschen.");
+    assert.equal(session.snapshot().phase, "review_intent");
+    assert.notEqual(session.snapshot().phase, "planning");
+  });
+
+  it("gar nichts without a word asks which word and does not pick one", () => {
+    const session = createSession({ adapter: "demo", ids: testIds() });
+    session.submit("Ändere in der README den Projektsatz, aber sonst nichts.");
+    session.signal("gar_nichts");
+    assert.match(session.snapshot().currentAtom?.plainText ?? "", /Welches Wort/);
+    assert.equal(session.snapshot().awaiting, "term");
+  });
+
+  it("a changed plan cannot reuse an old grant", () => {
+    const session = createSession({ adapter: "demo", ids: testIds() });
+    session.submit("Ändere in der README den Projektsatz, aber sonst nichts.");
+    session.signal("weiss");
+    const firstHash = session.snapshot().plan?.planHash;
+    assert.ok(firstHash);
+    session.signal("unsicher");
+    session.submit("Bitte wirklich nur README.md.");
+    const secondHash = session.snapshot().plan?.planHash;
+    assert.ok(secondHash);
+    assert.notEqual(secondHash, firstHash);
+    assert.equal(session.workspace()["README.md"], INITIAL_FILES["README.md"]);
+    session.signal("weiss");
+    assert.notEqual(session.workspace()["README.md"], INITIAL_FILES["README.md"]);
+  });
+
+  it("manual adapter stays disconnected and writes nothing", () => {
+    const session = createSession({ adapter: "manual", ids: testIds() });
+    assert.equal(session.view().connected, false);
+    assert.match(session.view().connectionLabel, /Nicht verbunden/);
+    session.submit("Ändere in der README den Projektsatz, aber sonst nichts.");
+    session.signal("weiss");
+    assert.match(session.view().atomText, /Nicht verbunden/);
+    assert.equal(session.workspace()["README.md"], INITIAL_FILES["README.md"]);
+  });
+
+  it("stop blocks and writes nothing", () => {
+    const session = createSession({ adapter: "demo", ids: testIds() });
+    session.submit("Ändere in der README den Projektsatz, aber sonst nichts.");
+    session.signal("weiss");
+    session.stop();
+    assert.equal(session.snapshot().phase, "blocked");
+    assert.equal(session.workspace()["README.md"], INITIAL_FILES["README.md"]);
   });
 });

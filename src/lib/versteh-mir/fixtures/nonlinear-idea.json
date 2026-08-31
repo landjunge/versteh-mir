@@ -1,0 +1,24 @@
+{
+  "id": "nonlinear-idea",
+  "opening": "Ein Tresor könnte wie ein Container sein und vielleicht später eine eigene Identität brauchen.",
+  "forbiddenAssumptions": ["standard architecture", "kubernetes", "docker"],
+  "steps": [
+    {
+      "say": "Ein Tresor könnte wie ein Container sein und vielleicht später eine eigene Identität brauchen.",
+      "expectPhase": "understanding",
+      "expectAtom": "Tresor",
+      "expectAwaiting": "free_answer"
+    },
+    {
+      "say": "Beide halten etwas sicher.",
+      "expectPhase": "understanding",
+      "expectAtom": "Beide halten etwas sicher",
+      "expectAwaiting": "signal"
+    },
+    {
+      "signal": "weiss",
+      "expectPhase": "review_intent",
+      "expectAtom": "nichts daran bauen"
+    }
+  ]
+}

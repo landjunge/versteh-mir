@@ -1,7 +1,7 @@
-type RecognitionLike = {
+type SpeechRecognitionLike = {
   lang: string;
-  continuous: boolean;
   interimResults: boolean;
+  continuous: boolean;
   onresult: ((event: { results: ArrayLike<ArrayLike<{ transcript: string }>> }) => void) | null;
   onerror: (() => void) | null;
   onend: (() => void) | null;
@@ -9,62 +9,58 @@ type RecognitionLike = {
   stop: () => void;
 };
 
-function recognitionCtor(): (new () => RecognitionLike) | null {
+function recognitionCtor(): (new () => SpeechRecognitionLike) | null {
   if (typeof window === "undefined") return null;
   const w = window as unknown as {
-    SpeechRecognition?: new () => RecognitionLike;
-    webkitSpeechRecognition?: new () => RecognitionLike;
+    SpeechRecognition?: new () => SpeechRecognitionLike;
+    webkitSpeechRecognition?: new () => SpeechRecognitionLike;
   };
   return w.SpeechRecognition ?? w.webkitSpeechRecognition ?? null;
 }
 
 export function canListen(): boolean {
-  return recognitionCtor() !== null;
+  return recognitionCtor() != null;
 }
 
-export function startListening(onText: (text: string) => void, onStop: () => void): () => void {
+export function startListening(onText: (text: string) => void, onEnd: () => void): () => void {
   const Ctor = recognitionCtor();
   if (!Ctor) {
-    onStop();
+    onEnd();
     return () => {};
   }
   const rec = new Ctor();
   rec.lang = "de-DE";
-  rec.continuous = false;
   rec.interimResults = false;
+  rec.continuous = false;
   rec.onresult = (event) => {
-    const said = event.results[0]?.[0]?.transcript?.trim() ?? "";
+    const said = event.results[0]?.[0]?.transcript?.trim();
     if (said) onText(said);
   };
-  rec.onerror = () => onStop();
-  rec.onend = () => onStop();
+  rec.onerror = () => onEnd();
+  rec.onend = () => onEnd();
   try {
     rec.start();
   } catch {
-    onStop();
+    onEnd();
   }
   return () => {
     try {
       rec.stop();
     } catch {
-      /* already stopped */
+      /* ignore */
     }
   };
 }
 
-export function speak(text: string, enabled: boolean): void {
+export function speak(text: string, enabled: boolean) {
   if (!enabled || typeof window === "undefined" || !window.speechSynthesis) return;
   window.speechSynthesis.cancel();
   const utter = new SpeechSynthesisUtterance(text);
   utter.lang = "de-DE";
-  utter.rate = 0.95;
-  const voices = window.speechSynthesis.getVoices();
-  const de = voices.find((v) => v.lang.toLowerCase().startsWith("de"));
-  if (de) utter.voice = de;
   window.speechSynthesis.speak(utter);
 }
 
-export function stopSpeaking(): void {
+export function stopSpeaking() {
   if (typeof window === "undefined" || !window.speechSynthesis) return;
   window.speechSynthesis.cancel();
 }

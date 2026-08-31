@@ -1,0 +1,25 @@
+{
+  "id": "cannot-follow",
+  "opening": "Gar nichts.",
+  "forbiddenAssumptions": ["consent", "plan"],
+  "steps": [
+    {
+      "say": "Gar nichts.",
+      "expectPhase": "understanding",
+      "expectAtom": "Welches Wort",
+      "expectAwaiting": "term"
+    },
+    {
+      "say": "Gate",
+      "expectPhase": "understanding",
+      "expectAtom": "Gate",
+      "expectAwaiting": "signal"
+    },
+    {
+      "signal": "weiss",
+      "expectPhase": "understanding",
+      "expectAwaiting": "free_answer",
+      "unchangedFile": "README.md"
+    }
+  ]
+}

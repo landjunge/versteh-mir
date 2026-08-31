@@ -1,10 +1,4 @@
-export type Signal = "weiss" | "unsicher" | "gar_nichts";
-
-const ALIASES: Record<Signal, string[]> = {
-  weiss: ["weiß", "weiss", "weiter", "ja", "passt"],
-  unsicher: ["unsicher", "unklar", "warte", "das nicht"],
-  gar_nichts: ["gar nichts", "nichts", "was heißt", "was heisst", "erklär", "erklaer", "erkläre"],
-};
+import type { Signal } from "./types.ts";
 
 export function normalizeInput(raw: string): string {
   return raw
@@ -15,19 +9,32 @@ export function normalizeInput(raw: string): string {
     .trim();
 }
 
-/** Exact alias only. Never treat a longer utterance as a signal. */
+const WEISS = new Set(["weiß", "weiss"]);
+const UNSICHER = new Set(["unsicher", "unklar"]);
+const GAR_NICHTS = new Set(["gar nichts", "garnichts"]);
+const STOP = new Set(["stopp", "stop", "abbrechen", "halt"]);
+const RESET = new Set(["von vorn", "von vorne", "neu starten", "zurücksetzen"]);
+const IDK = new Set([
+  "ich weiß es nicht",
+  "ich weiss es nicht",
+  "weiß es nicht",
+  "weiss es nicht",
+  "weiß nicht",
+  "weiss nicht",
+  "keine ahnung",
+  "ich weiß nicht",
+  "ich weiss nicht",
+]);
+
+/** Release signal: only weiß / weiss. Never ja, okay, passt, weiter, or "weiß ich nicht". */
 export function parseSignal(raw: string): Signal | null {
   const t = normalizeInput(raw);
   if (!t) return null;
-
-  let hit: Signal | null = null;
-  for (const signal of Object.keys(ALIASES) as Signal[]) {
-    if (ALIASES[signal].includes(t)) {
-      if (hit) return null;
-      hit = signal;
-    }
-  }
-  return hit;
+  if (t === "weiß ich nicht" || t === "weiss ich nicht") return null;
+  if (WEISS.has(t)) return "weiss";
+  if (UNSICHER.has(t)) return "unsicher";
+  if (GAR_NICHTS.has(t)) return "gar_nichts";
+  return null;
 }
 
 export function parseGarNichtsTerm(raw: string): string | null {
@@ -39,6 +46,30 @@ export function parseGarNichtsTerm(raw: string): string | null {
   return word || null;
 }
 
+export function isExplainBare(raw: string): boolean {
+  const t = normalizeInput(raw);
+  return (
+    t === "erklär" ||
+    t === "erklaer" ||
+    t === "erkläre" ||
+    t === "erklaere" ||
+    t === "was heißt" ||
+    t === "was heisst"
+  );
+}
+
+export function isStopPhrase(raw: string): boolean {
+  return STOP.has(normalizeInput(raw));
+}
+
+export function isResetPhrase(raw: string): boolean {
+  return RESET.has(normalizeInput(raw));
+}
+
+export function isIDontKnow(raw: string): boolean {
+  return IDK.has(normalizeInput(raw));
+}
+
 export function oneWord(text: string): string {
   const match = text.trim().match(/[A-Za-zÄÖÜäöüß]+/);
   return match?.[0] ?? "";
@@ -48,28 +79,8 @@ export function oneSentence(text: string): string {
   const cleaned = text.replace(/\s+/g, " ").trim().replace(/^[-*•]\s*/, "");
   if (!cleaned) return "";
   const match = cleaned.match(/^[\s\S]*?[.!?]/);
-  const sentence = (match?.[0] ?? cleaned).trim();
-  return sentence;
+  return (match?.[0] ?? cleaned).trim();
 }
 
 export const SIGNAL_PROMPT = "weiß, unsicher oder gar nichts?";
-
-export type Direction = "mensch_ki" | "ki_mensch";
-
-export const DIRECTION_LABEL: Record<Direction, string> = {
-  mensch_ki: "Mensch → KI",
-  ki_mensch: "KI → Mensch",
-};
-
-export function parseTranslate(raw: string): { direction: Direction; sentence: string } | null {
-  const dir = raw.match(/RICHTUNG:\s*(mensch_ki|ki_mensch)/i);
-  if (!dir?.[1]) return null;
-  const satz = raw.match(/SATZ:\s*([\s\S]+)/i);
-  const sentence = oneSentence((satz?.[1] ?? "").trim());
-  if (!sentence) return null;
-  return {
-    direction: dir[1].toLowerCase() as Direction,
-    sentence,
-  };
-}
-
+export const TERM_PROMPT = "Welches Wort oder welcher Teil ist gerade nicht verständlich?";

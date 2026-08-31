@@ -12,9 +12,9 @@
   --color-sage-soft: #d7e2dd;
   --color-danger: #8a3a2a;
   --font-sans: "Atkinson Hyperlegible", "Segoe UI", system-ui, sans-serif;
+  --font-display: "Fraunces", "Times New Roman", serif;
   --radius-window: 1.75rem;
   --radius-inner: 0.75rem;
-  --radius-pill: 999px;
   --shadow-window:
     0px 0px 0px 1px rgba(26, 24, 20, 0.08),
     0px 18px 40px -18px rgba(26, 24, 20, 0.22);
