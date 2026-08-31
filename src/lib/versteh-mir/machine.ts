@@ -1,8 +1,6 @@
 import { iso } from "./ids.ts";
 import {
   classifyOpening,
-  explainTerm,
-  explainTermAsExample,
   exploreIntentSummary,
   extractGermanNouns,
   mirrorClearIntent,
@@ -13,7 +11,7 @@ import {
   orientReadOffer,
   relationQuestion,
 } from "./meaning.ts";
-import { effectAtomText } from "./adapters.ts";
+import { deterministicEngine } from "./engine.ts";
 import {
   isExplainBare,
   isIDontKnow,
@@ -484,8 +482,7 @@ function applySignal(
 }
 
 function explainNamed(state: SessionState, term: string): ReduceResult {
-  const text =
-    state.representation === "plain" ? explainTerm(term) : explainTermAsExample(term);
+  const text = deterministicEngine.explainTerm(term, state.representation);
   const next: SessionState = {
     ...state,
     lastExplainedTerm: term,
@@ -693,13 +690,12 @@ function acceptPlan(state: SessionState, plan: ActionPlan): ReduceResult {
     loop: { kind: "review_plan", opIndex: 0 },
   };
   if (readsOnly) {
-    // Gate 1 already allows the read. Show the measured direction after the runner executes it.
     return {
-      state: withAtom(next, atom(next, "plan_effect", effectAtomText(plan), true), "signal"),
+      state: withAtom(next, atom(next, "plan_effect", deterministicEngine.explainPlan(plan), true), "signal"),
       effect: { type: "none" },
     };
   }
-  return none(withAtom(next, atom(next, "plan_effect", effectAtomText(plan), true), "signal"));
+  return none(withAtom(next, atom(next, "plan_effect", deterministicEngine.explainPlan(plan), true), "signal"));
 }
 
 function acceptResult(state: SessionState, result: ExecutionResult): ReduceResult {
@@ -710,7 +706,7 @@ function acceptResult(state: SessionState, result: ExecutionResult): ReduceResul
     result,
     approvalGrant: state.approvalGrant ? { ...state.approvalGrant, used: true } : null,
   };
-  return none(withAtom(next, atom(next, "result", result.measuredSummary, false), "none"));
+  return none(withAtom(next, atom(next, "result", deterministicEngine.explainResult(result), false), "none"));
 }
 
 export function applyEffect(
@@ -729,6 +725,11 @@ export function applyEffect(
     if (nextEffect.type === "create_plan") {
       try {
         const plan = deps.createPlan(nextEffect.intent);
+        const verdict = deterministicEngine.inspectPlan(plan, nextEffect.intent);
+        if (!verdict.ok) {
+          const message = `${verdict.reason} ${deterministicEngine.explainPlan(plan)}`;
+          return reduce(current, { type: "plan_failed", message }).state;
+        }
         const reduced = reduce(current, { type: "plan_created", plan });
         current = reduced.state;
         const readsOnly = plan.operations.every((op) => op.risk === "read");

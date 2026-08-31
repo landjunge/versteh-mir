@@ -1,5 +1,6 @@
 import { demoAdapter, grokBuildAdapter, manualAdapter, type AgentAdapter } from "./adapters.ts";
 import { MemoryBroker } from "./broker.ts";
+import { deterministicEngine } from "./engine.ts";
 import { liveIds } from "./ids.ts";
 import { applyEffect, createState, reduce } from "./machine.ts";
 import type {
@@ -115,10 +116,7 @@ export function createSession(opts?: {
           };
         }
         const result = broker.executeRead(plan, grant);
-        if (!result.blocked.length && plan.expectedResult) {
-          return { ...result, measuredSummary: plan.expectedResult };
-        }
-        return result;
+        return { ...result, measuredSummary: deterministicEngine.explainResult(result) };
       },
     });
     return toView(state, broker.snapshot());
