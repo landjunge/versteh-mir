@@ -26,5 +26,6 @@ Versteh-Mir ist eine Verständigungs- und Einwilligungsschicht zwischen Mensch u
 - [Bauplan](docs/BUILD_PLAN.md)
 - [Sicherheitsmodell](docs/SECURITY_MODEL.md)
 - [Abweichungen](docs/DEVIATIONS.md)
+- [TypeScript](docs/TYPESCRIPT.md)
 
 Repo: https://github.com/landjunge/versteh-mir
