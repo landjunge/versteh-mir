@@ -59,6 +59,14 @@ Schlägt eine Operation fehl, wird der vorherige Stand wiederhergestellt. Die No
 
 Das Ergebnis nennt nur, was sich gegenüber dem Stand vor der Ausführung geändert hat. Eine freie Zusammenfassung des Adapters zählt nicht.
 
+## Sprache
+
+Push-to-talk. Kein dauerhaft offenes Mikrofon. Versteh-Mir speichert kein Audio.
+
+Die Browser-Speech-API gilt **nicht** als lokal. Der Hinweis dafür ist sichtbar, bevor und während das Mikrofon an ist. Vorlesen ist aus, bis der Mensch es einschaltet, und lässt sich jederzeit unterbrechen.
+
+Keine versteckte Audioübertragung durch Versteh-Mir selbst. Was der Browser-Hersteller mit der Erkennung tut, steuert Versteh-Mir nicht — deshalb heißt es nicht „lokal“.
+
 ## Was dieses Dokument nicht erlaubt
 
 Keine Browser-Cookies, keine fremden Sitzungen, kein Scraping, keine vorgetäuschte Grok-Build-Verbindung, keine allgemeine Schreib- oder Shell-Rechte.

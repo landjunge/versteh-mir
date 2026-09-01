@@ -20,6 +20,7 @@ Versteh-Mir ist eine Verständigungs- und Einwilligungsschicht zwischen Mensch u
 - Zwei Gates: Bedeutung, dann Handlung
 - Capability Broker: ohne ausgestellte Freigabe, mit altem Hash, nach Ablauf oder beim zweiten Versuch wird nichts geschrieben
 - Planwirkung aus den Operationen: Löschen, Senden, Geheimnisse und Kosten können in der Erklärung nicht verschwinden
+- Push-to-talk: Mikrofon nur gedrückt, Tastatur allein reicht
 
 ## Dokumentation
 
@@ -29,6 +30,7 @@ Versteh-Mir ist eine Verständigungs- und Einwilligungsschicht zwischen Mensch u
 - [Abweichungen](docs/DEVIATIONS.md)
 - [TypeScript](docs/TYPESCRIPT.md)
 - [Grok-Build-Adapter](docs/GROK_BUILD_ADAPTER.md)
+- [Desktop](docs/DESKTOP.md)
 
 Repo: https://github.com/landjunge/versteh-mir
 

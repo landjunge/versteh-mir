@@ -2,8 +2,8 @@ import { useEffect, useId, useRef, useState } from "react";
 import { ArrowUp, Mic, Square, Volume2, VolumeX } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { createSession, type View } from "@/lib/versteh-mir/session";
-import { canListen, speak, startListening, stopSpeaking } from "@/lib/versteh-mir/speech";
-import type { Signal } from "@/lib/versteh-mir/types";
+import { probeSpeech, speak, startListening, stopSpeaking } from "@/lib/versteh-mir/speech";
+import type { Channel, Signal } from "@/lib/versteh-mir/types";
 
 const SIGNALS: { id: Signal; label: string }[] = [
   { id: "weiss", label: "weiß" },
@@ -30,13 +30,16 @@ export function VerstehMirWindow() {
   const [listening, setListening] = useState(false);
   const [voiceOn, setVoiceOn] = useState(false);
   const [micAvailable, setMicAvailable] = useState(false);
-  const [micNotice, setMicNotice] = useState(false);
+  const [privacy, setPrivacy] = useState("");
   const stopListen = useRef<(() => void) | null>(null);
+  const pendingSpeech = useRef("");
   const inputRef = useRef<HTMLInputElement>(null);
   const spoken = useRef("");
 
   useEffect(() => {
-    setMicAvailable(canListen());
+    const probe = probeSpeech();
+    setMicAvailable(probe.listen);
+    setPrivacy(probe.notice);
     return () => {
       stopListen.current?.();
       stopSpeaking();
@@ -50,11 +53,11 @@ export function VerstehMirWindow() {
     speak(view.atomText, true);
   }, [view.atomText, voiceOn]);
 
-  function submitText(raw: string) {
+  function submitText(raw: string, channel: Channel = "keyboard") {
     const text = raw.trim();
     if (!text) return;
     setDraft("");
-    setView(session.submit(text, "keyboard"));
+    setView(session.submit(text, channel));
   }
 
   function onSignal(signal: Signal) {
@@ -62,25 +65,34 @@ export function VerstehMirWindow() {
     setView(session.signal(signal, "button"));
   }
 
-  function toggleMic() {
-    if (listening) {
-      stopListen.current?.();
-      stopListen.current = null;
-      setListening(false);
-      return;
-    }
-    setMicNotice(true);
+  function startPtt(event: React.PointerEvent<HTMLButtonElement>) {
+    if (listening) return;
+    event.preventDefault();
+    event.currentTarget.setPointerCapture(event.pointerId);
+    stopSpeaking();
+    pendingSpeech.current = "";
     setListening(true);
     stopListen.current = startListening(
       (said) => {
+        pendingSpeech.current = said;
         setDraft(said);
-        inputRef.current?.focus();
       },
       () => {
         setListening(false);
         stopListen.current = null;
+        const said = pendingSpeech.current.trim();
+        pendingSpeech.current = "";
+        if (said) submitText(said, "speech");
       },
     );
+  }
+
+  function endPtt(event: React.PointerEvent<HTMLButtonElement>) {
+    if (event.currentTarget.hasPointerCapture(event.pointerId)) {
+      event.currentTarget.releasePointerCapture(event.pointerId);
+    }
+    stopListen.current?.();
+    stopListen.current = null;
   }
 
   return (
@@ -111,7 +123,7 @@ export function VerstehMirWindow() {
             type="button"
             className="inline-flex size-11 items-center justify-center rounded-inner text-muted transition-[background-color,transform,color] duration-150 ease-out hover:bg-paper hover:text-ink active:scale-[0.96]"
             aria-pressed={voiceOn}
-            aria-label={voiceOn ? "Stimme aus" : "Stimme an"}
+            aria-label={voiceOn ? "Vorlesen aus, Wiedergabe stoppen" : "Vorlesen an"}
             onClick={() => {
               setVoiceOn((v) => {
                 if (v) stopSpeaking();
@@ -170,17 +182,19 @@ export function VerstehMirWindow() {
           className="flex items-center gap-2 px-5 pt-3 pb-5"
           onSubmit={(event) => {
             event.preventDefault();
-            submitText(draft);
+            submitText(draft, "keyboard");
           }}
         >
           {micAvailable ? (
             <button
               type="button"
-              onClick={toggleMic}
+              onPointerDown={startPtt}
+              onPointerUp={endPtt}
+              onPointerCancel={endPtt}
               aria-pressed={listening}
-              aria-label={listening ? "Spracheingabe stoppen" : "Spracheingabe"}
+              aria-label={listening ? "Mikrofon an, loslassen beendet" : "Mikrofon gedrückt halten"}
               className={cn(
-                "inline-flex size-12 shrink-0 items-center justify-center rounded-inner transition-[background-color,color,transform] duration-150 ease-out active:scale-[0.96]",
+                "inline-flex size-12 shrink-0 items-center justify-center rounded-inner transition-[background-color,color,transform] duration-150 ease-out",
                 listening ? "bg-sage text-surface" : "bg-paper text-ink hover:bg-paper/80",
               )}
             >
@@ -212,10 +226,10 @@ export function VerstehMirWindow() {
         </form>
       </section>
 
-      {micNotice ? (
+      {privacy ? (
         <p className="mt-4 max-w-md px-3 text-center text-sm text-muted text-pretty">
-          Spracheingabe läuft über den Browser und kann Daten nach außen senden. Das Transkript
-          erscheint im Feld — senden erst, wenn es stimmt.
+          {listening ? "Mikrofon an — nur solange du drückst. " : null}
+          {privacy}
         </p>
       ) : null}
 
@@ -226,6 +240,8 @@ export function VerstehMirWindow() {
             className="inline-flex min-h-11 items-center gap-2 px-3 text-sm text-muted transition-colors duration-150 hover:text-ink"
             onClick={() => {
               stopSpeaking();
+              stopListen.current?.();
+              setListening(false);
               setView(session.stop());
             }}
           >
@@ -237,6 +253,8 @@ export function VerstehMirWindow() {
             className="min-h-11 px-3 text-sm text-muted transition-colors duration-150 hover:text-ink"
             onClick={() => {
               stopSpeaking();
+              stopListen.current?.();
+              setListening(false);
               setDraft("");
               setView(session.reset());
               inputRef.current?.focus();

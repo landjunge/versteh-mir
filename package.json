@@ -7,7 +7,7 @@
   },
   "scripts": {
     "cli": "node --experimental-strip-types src/cli/versteh-mir.ts",
-    "test": "node --experimental-strip-types --test src/lib/versteh-mir/signals.test.ts src/lib/versteh-mir/flow.test.ts src/lib/versteh-mir/broker.test.ts src/lib/versteh-mir/engine.test.ts src/lib/versteh-mir/adapters.test.ts src/cli/versteh-mir.test.ts zsh/plugin.test.ts"
+    "test": "node --experimental-strip-types --test src/lib/versteh-mir/signals.test.ts src/lib/versteh-mir/flow.test.ts src/lib/versteh-mir/broker.test.ts src/lib/versteh-mir/engine.test.ts src/lib/versteh-mir/adapters.test.ts src/lib/versteh-mir/speech.test.ts src/cli/versteh-mir.test.ts zsh/plugin.test.ts"
   },
   "dependencies": {
     "zod": "^4.4.0"

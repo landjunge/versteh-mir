@@ -9,6 +9,37 @@ type SpeechRecognitionLike = {
   stop: () => void;
 };
 
+export const LISTEN_POLICY = {
+  continuous: false,
+  storesAudio: false,
+  treatAsLocal: false,
+} as const;
+
+export type SpeechProbe = {
+  listen: boolean;
+  speak: boolean;
+  localListen: false;
+  notice: string;
+};
+
+export function speechNotice(listen: boolean): string {
+  if (!listen) {
+    return "Keine Spracheingabe in diesem Browser. Die Tastatur reicht für den ganzen Kreis.";
+  }
+  return "Mikrofon nur solange du drückst. Die Erkennung läuft über den Browser und kann Sprache nach außen senden. Das ist keine lokale Erkennung. Versteh-Mir speichert kein Audio.";
+}
+
+export function probeSpeech(): SpeechProbe {
+  const listen = canListen();
+  const speak = typeof window !== "undefined" && typeof window.speechSynthesis !== "undefined";
+  return {
+    listen,
+    speak,
+    localListen: false,
+    notice: speechNotice(listen),
+  };
+}
+
 function recognitionCtor(): (new () => SpeechRecognitionLike) | null {
   if (typeof window === "undefined") return null;
   const w = window as unknown as {
@@ -31,7 +62,7 @@ export function startListening(onText: (text: string) => void, onEnd: () => void
   const rec = new Ctor();
   rec.lang = "de-DE";
   rec.interimResults = false;
-  rec.continuous = false;
+  rec.continuous = LISTEN_POLICY.continuous;
   rec.onresult = (event) => {
     const said = event.results[0]?.[0]?.transcript?.trim();
     if (said) onText(said);
