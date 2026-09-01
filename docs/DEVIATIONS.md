@@ -15,4 +15,5 @@ Stand: 1. September 2026
 
 - Echte Grok-Build-Schnittstelle, sobald CLI/ACP in der Laufzeit nachweisbar ist
 - Signiertes Tauri-Desktop-Paket (erst nach Threat Model, siehe DESKTOP.md)
+- Fünf Mensch-Tests aus ALPHA.md (Protokoll liegt, Durchführung steht aus)
 - Optionales „Wie kamen wir hierher?“

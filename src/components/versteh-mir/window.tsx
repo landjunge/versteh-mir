@@ -84,6 +84,9 @@ export function VerstehMirWindow() {
         pendingSpeech.current = "";
         if (said) submitText(said, "speech");
       },
+      (raw) => {
+        setDraft(raw);
+      },
     );
   }
 

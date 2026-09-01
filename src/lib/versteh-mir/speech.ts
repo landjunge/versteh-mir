@@ -13,6 +13,7 @@ export const LISTEN_POLICY = {
   continuous: false,
   storesAudio: false,
   treatAsLocal: false,
+  minConfidence: 0.75,
 } as const;
 
 export type SpeechProbe = {
@@ -49,11 +50,22 @@ function recognitionCtor(): (new () => SpeechRecognitionLike) | null {
   return w.SpeechRecognition ?? w.webkitSpeechRecognition ?? null;
 }
 
+export function acceptTranscript(text: string, confidence?: number): string | null {
+  const said = text.trim();
+  if (!said) return null;
+  if (typeof confidence === "number" && confidence < LISTEN_POLICY.minConfidence) return null;
+  return said;
+}
+
 export function canListen(): boolean {
   return recognitionCtor() != null;
 }
 
-export function startListening(onText: (text: string) => void, onEnd: () => void): () => void {
+export function startListening(
+  onText: (text: string) => void,
+  onEnd: () => void,
+  onUncertain?: (text: string) => void,
+): () => void {
   const Ctor = recognitionCtor();
   if (!Ctor) {
     onEnd();
@@ -64,8 +76,11 @@ export function startListening(onText: (text: string) => void, onEnd: () => void
   rec.interimResults = false;
   rec.continuous = LISTEN_POLICY.continuous;
   rec.onresult = (event) => {
-    const said = event.results[0]?.[0]?.transcript?.trim();
+    const alt = event.results[0]?.[0] as { transcript?: string; confidence?: number } | undefined;
+    const raw = alt?.transcript?.trim() ?? "";
+    const said = acceptTranscript(raw, alt?.confidence);
     if (said) onText(said);
+    else if (raw) onUncertain?.(raw);
   };
   rec.onerror = () => onEnd();
   rec.onend = () => onEnd();

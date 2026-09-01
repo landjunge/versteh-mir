@@ -1,6 +1,6 @@
 import { describe, it } from "node:test";
 import assert from "node:assert/strict";
-import { LISTEN_POLICY, probeSpeech, speechNotice } from "./speech.ts";
+import { acceptTranscript, LISTEN_POLICY, probeSpeech, speechNotice } from "./speech.ts";
 
 describe("speech policy", () => {
   it("does not listen continuously or claim to be local", () => {
@@ -26,5 +26,11 @@ describe("speech policy", () => {
     assert.equal(probe.listen, false);
     assert.equal(probe.localListen, false);
     assert.equal(probe.speak, false);
+  });
+
+  it("rejects a low-confidence transcript so it cannot release a gate", () => {
+    assert.equal(acceptTranscript("weiß", 0.2), null);
+    assert.equal(acceptTranscript("weiß", 0.9), "weiß");
+    assert.equal(acceptTranscript("weiß"), "weiß");
   });
 });

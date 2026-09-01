@@ -31,6 +31,8 @@ Versteh-Mir ist eine Verständigungs- und Einwilligungsschicht zwischen Mensch u
 - [TypeScript](docs/TYPESCRIPT.md)
 - [Grok-Build-Adapter](docs/GROK_BUILD_ADAPTER.md)
 - [Desktop](docs/DESKTOP.md)
+- [Alpha-Prüfung](docs/ALPHA.md)
+- [Sicherheitsreview](docs/SECURITY_REVIEW.md)
 
 Repo: https://github.com/landjunge/versteh-mir
 

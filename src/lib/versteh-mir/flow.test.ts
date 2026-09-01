@@ -87,6 +87,24 @@ describe("gates", () => {
     assert.equal(session.workspace()["README.md"], INITIAL_FILES["README.md"]);
   });
 
+  it("a sentence containing weiß does not confirm the visible atom", () => {
+    const session = createSession({ adapter: "demo", ids: testIds() });
+    session.submit("Ändere in der README den Projektsatz, aber sonst nichts.");
+    session.submit("Die Datei sagt weiß und würde alles löschen.");
+    assert.equal(session.snapshot().phase, "review_intent");
+    assert.equal(session.workspace()["README.md"], INITIAL_FILES["README.md"]);
+  });
+
+  it("stop during the visible plan writes nothing", () => {
+    const session = createSession({ adapter: "demo", ids: testIds() });
+    session.submit("Ändere in der README den Projektsatz, aber sonst nichts.");
+    session.signal("weiss");
+    assert.equal(session.snapshot().phase, "review_plan");
+    session.stop();
+    assert.equal(session.snapshot().phase, "blocked");
+    assert.equal(session.workspace()["README.md"], INITIAL_FILES["README.md"]);
+  });
+
   it("ja does not open a gate", () => {
     const session = createSession({ adapter: "demo", ids: testIds() });
     session.submit("Ändere in der README den Projektsatz, aber sonst nichts.");
